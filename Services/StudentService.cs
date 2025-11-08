@@ -13,12 +13,12 @@ namespace StudentsApi.Services
         }
         public IEnumerable<Student> GetAllStudents()
         {
-            throw new NotImplementedException();
+            return _repo.GetAllStudents();
         }
 
         public Student? GetStudentById(Guid id)
         {
-            throw new NotImplementedException();
+            return _repo.GetStudentById(id);
         }
     }
 }
