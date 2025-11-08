@@ -14,11 +14,12 @@ namespace StudentsApi.Repositories
         public IEnumerable<Student> GetAllStudents()
         {
             // Fix: Specify the key selector explicitly for OrderBy
-            return students.OrderBy(student => student.Name);
+            return students.OrderBy(student => student.Name).ToList();
         }
 
         public Student? GetStudentById(Guid id)
         {
+            Console.WriteLine($"Searching for student with ID: {id}");
             return students.FirstOrDefault(s => s.Id == id);
         }
     }
