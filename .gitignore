@@ -1,0 +1,52 @@
+# 🔧 Byggmappar
+bin/
+obj/
+
+# 🧠 Visual Studio-cache
+.vs/
+.vscode/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# 🧪 Testresultat
+TestResult/
+*.trx
+
+# 📦 NuGet-paket
+*.nupkg
+*.snupkg
+packages/
+project.lock.json
+project.fragment.lock.json
+
+# 🔐 Miljöfiler
+.env
+*.env.local
+
+# 📜 Loggar
+*.log
+
+# 🧹 Temporära filer
+*.tmp
+*.bak
+*.swp
+*.swo
+
+# 🖼️ OS-specifika filer
+Thumbs.db
+.DS_Store
+
+# 🌐 Frontend (om du har React eller liknande)
+node_modules/
+dist/
+build/
+
+# 📄 IDE-specifika filer
+.idea/
+*.iml
+
+# 🧪 Copilot och AI-indexfiler
+.vs/**/CopilotIndices/
+.vs/**/FileContentIndex/
