@@ -2,23 +2,23 @@
 
 namespace StudentsApi.Repositories
 {
-    public class StudentRepository
+    public class StudentRepository : IStudentRepository
     {
-        List<Student> students = new()
-            {
-                new Student("Alice", "no@mail.com"),
-                new Student("Bob", "mail@nomail.com"),
-                new Student("Charlie", "nomail@nomail.com")
-            };
+        private readonly List<Student> students = new()
+                {
+                    new Student("Alice", "no@mail.com"),
+                    new Student("Bob", "mail@nomail.com"),
+                    new Student("Charlie", "nomail@nomail.com")
+                };
 
         public IEnumerable<Student> GetAllStudents()
         {
-            // Implementation to retrieve all students from the data source
-            return students;
+            // Fix: Specify the key selector explicitly for OrderBy
+            return students.OrderBy(student => student.Name);
         }
 
         public Student? GetStudentById(Guid id)
-        { 
+        {
             return students.FirstOrDefault(s => s.Id == id);
         }
     }
