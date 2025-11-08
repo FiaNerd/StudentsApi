@@ -1,0 +1,9 @@
+﻿namespace StudentsApi.Models
+{
+    public class Student (string name, string email)
+    {
+        public Guid Id { get; } = Guid.NewGuid();
+        public string Name { get; set; } = name;
+        public string Email { get; set; } = email;
+    }
+}
