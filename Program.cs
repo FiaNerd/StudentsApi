@@ -1,4 +1,5 @@
 using StudentsApi.Repositories;
+using StudentsApi.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,6 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddOpenApi();
 
 builder.Services.AddScoped<IStudentRepository, StudentRepository>();
+builder.Services.AddSingleton<IStudentService, StudentService>();
 
 var app = builder.Build();
 
