@@ -7,7 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
-builder.Services.AddScoped<IStudentRepository, StudentRepository>();
+builder.Services.AddSingleton<IStudentRepository, StudentRepository>();
 builder.Services.AddSingleton<IStudentService, StudentService>();
 
 var app = builder.Build();
