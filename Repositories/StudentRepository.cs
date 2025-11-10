@@ -21,5 +21,19 @@ namespace StudentsApi.Repositories
         {
             return students.FirstOrDefault(s => s.Id == id);
         }
+        public Student CreateStudent(Student student)
+        {
+            throw new NotImplementedException();
+        }
+        public Student UpdateStudent(Guid id, Student student)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Student DeleteStudent(Guid id)
+        {
+            throw new NotImplementedException();
+        }
+
     }
 }
