@@ -21,9 +21,19 @@ namespace StudentsApi.Repositories
         {
             return students.FirstOrDefault(s => s.Id == id);
         }
-        public Student CreateStudent(Student student)
+        public bool CreateStudent(Student student)
         {
-            throw new NotImplementedException();
+            try
+            {
+                students.Add(student);
+
+                return true;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
         public Student UpdateStudent(Guid id, Student student)
         {
