@@ -19,7 +19,6 @@ namespace StudentsApi.Repositories
 
         public Student? GetStudentById(Guid id)
         {
-            Console.WriteLine($"Searching for student with ID: {id}");
             return students.FirstOrDefault(s => s.Id == id);
         }
     }
