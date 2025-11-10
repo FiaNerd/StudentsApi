@@ -21,5 +21,18 @@ namespace StudentsApi.Controllers
         { 
           return Ok(_studentService.GetAllStudents());
         }
+
+        [HttpGet("{id}")]
+        public ActionResult<Student> GetStudentById(Guid id)
+        { 
+            var student = _studentService.GetStudentById(id);
+
+            if (student == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(student);
+        }
     }
 }
