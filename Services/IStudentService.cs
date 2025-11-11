@@ -6,7 +6,7 @@ namespace StudentsApi.Services
     {
         public IEnumerable<Student> GetAllStudents();
         public Student? GetStudentById(Guid id);
-        public bool CreateStudent(Student student);
-        public Student UpdateStudent(Guid id, Student updateStudent);
+        public Student CreateStudent(CreateStudentRequest student);
+        public Student UpdateStudent(Guid id, CreateStudentRequest updateStudent);
     }
 }

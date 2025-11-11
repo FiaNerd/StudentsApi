@@ -26,4 +26,17 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.MapPost("/api/student", (CreateStudentRequest newStudent, IStudentService studentService) =>
+{
+    try
+    {
+        var createdStudent = studentService.CreateStudent(newStudent);
+        return Results.Created($"/api/student/{createdStudent.Id}", createdStudent);
+    }
+    catch (Exception ex)
+    {
+        return Results.Problem("An error occurred while adding the student.");
+    }
+});
+
 app.Run();

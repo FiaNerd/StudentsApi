@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http.HttpResults;
-using StudentsApi.Models;
+﻿using StudentsApi.Models;
 using System.Data;
 
 namespace StudentsApi.Repositories

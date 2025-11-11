@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http.HttpResults;
-using StudentsApi.Models;
+﻿using StudentsApi.Models;
 using StudentsApi.Repositories;
 
 namespace StudentsApi.Services
@@ -35,6 +34,34 @@ namespace StudentsApi.Services
 
                 throw;
             }
+        }
+
+        public Student CreateStudent(CreateStudentRequest studentRequest)
+        {
+            try {
+                var newSudent = new Student(
+                    studentRequest.Name,
+                    studentRequest.Email
+                    );
+
+                bool isSuccess = _repo.CreateStudent(newSudent);
+
+                if(isSuccess)
+                {
+                    return newSudent;
+                }
+
+                throw new Exception("Failed to create student.");
+            }
+            catch 
+            {
+                throw;
+            }
+        }
+
+        public Student UpdateStudent(Guid id, CreateStudentRequest studentRequest)
+        {
+            throw new NotImplementedException();
         }
     }
 }
