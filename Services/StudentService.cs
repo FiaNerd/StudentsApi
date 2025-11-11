@@ -83,5 +83,12 @@ namespace StudentsApi.Services
                 throw;
             }
         }
+
+        public Student DeleteStudent(Guid id)
+        {
+            var deletedStudent = _repo.DeleteStudent(id);
+
+            return deletedStudent;
+        }
     }
 }
