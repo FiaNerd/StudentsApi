@@ -42,4 +42,16 @@ app.UseHttpsRedirection();
 //    return Results.Ok(updatedEntity);
 //});
 
+app.MapDelete("/api/student/{id}", (Guid id, IStudentRepository studentRepo) => { 
+    var student = studentRepo.GetStudentById(id);
+    if (student == null)
+    {
+        return Results.NotFound();
+    }
+
+    studentRepo.DeleteStudent(id);
+
+    return Results.NoContent();
+});
+
 app.Run();

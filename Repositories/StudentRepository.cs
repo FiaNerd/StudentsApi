@@ -1,4 +1,5 @@
-﻿using StudentsApi.Models;
+﻿using Microsoft.AspNetCore.Http.HttpResults;
+using StudentsApi.Models;
 using System.Data;
 
 namespace StudentsApi.Repositories
@@ -59,8 +60,21 @@ namespace StudentsApi.Repositories
 
         public Student DeleteStudent(Guid id)
         {
-            throw new NotImplementedException();
-        }
+            try
+            {
+                var student = students.FirstOrDefault(s => s.Id == id);
 
+                if (student is not null)
+                {
+                    students.Remove(student);
+                }
+
+                return student!;
+            }
+            catch
+            {
+                throw;
+            }
+        }
     }
 }
