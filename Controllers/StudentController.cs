@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using StudentsApi.Models;
 using StudentsApi.Services;
+using System.Security.Cryptography.X509Certificates;
 
 namespace StudentsApi.Controllers
 {
@@ -18,13 +19,13 @@ namespace StudentsApi.Controllers
 
         [HttpGet]
         public ActionResult<Student> GetAllStudents()
-        { 
-          return Ok(_studentService.GetAllStudents());
+        {
+            return Ok(_studentService.GetAllStudents());
         }
 
         [HttpGet("{id}")]
         public ActionResult<Student> GetStudentById(Guid id)
-        { 
+        {
             var student = _studentService.GetStudentById(id);
 
             if (student == null)
@@ -33,6 +34,43 @@ namespace StudentsApi.Controllers
             }
 
             return Ok(student);
+        }
+
+        [HttpPost]
+        public ActionResult<Student> CreateStudent([FromBody] CreateStudentRequest studentRequest)
+        {
+            try
+            {
+               var createdStudent = _studentService.CreateStudent(studentRequest);
+
+                return Created($"api/student/{createdStudent.Id}",createdStudent );
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        [HttpPut("{id}")]
+        public ActionResult<Student> UpdateStudent(Guid id, [FromBody] CreateStudentRequest studentRequest)
+        {
+            try
+            {
+                var updatedStudent = _studentService.UpdateStudent(id, studentRequest);
+
+                if(updatedStudent == null)
+                {
+                    return NotFound();
+                }
+
+                return Ok(updatedStudent);
+            }
+            catch
+            {
+
+                throw;
+            }
         }
     }
 }
