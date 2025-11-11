@@ -26,7 +26,22 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.MapGet("/api/course", (ICourseRepository courseRepo) => { 
-    return courseRepo.GetAllCourses();
+    return Results.Ok(courseRepo.GetAllCourses());
+});
+
+app.MapGet("/api/course/{id}", (Guid id, ICourseRepository courseRepo) =>
+{
+	try
+	{
+		var courseById = courseRepo.GetCourseById(id);
+
+		return Results.Ok(courseById);
+    }
+	catch (Exception)
+	{
+
+		throw;
+	}
 });
 
 app.Run();
