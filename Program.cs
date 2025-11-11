@@ -26,32 +26,4 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-//app.MapPut("/api/student/{id}", (Guid id, Student updatedStudent, IStudentRepository studentRepo) =>
-//{
-//    var existingStudent = studentRepo.GetStudentById(id);
-
-//    if (existingStudent == null)
-//    {
-//        return Results.NotFound();
-//    }
-
-//    existingStudent.Name = updatedStudent.Name;
-//    existingStudent.Email = updatedStudent.Email;
-
-//    var updatedEntity = studentRepo.UpdateStudent(id, existingStudent); 
-//    return Results.Ok(updatedEntity);
-//});
-
-app.MapDelete("/api/student/{id}", (Guid id, IStudentRepository studentRepo) => { 
-    var student = studentRepo.GetStudentById(id);
-    if (student == null)
-    {
-        return Results.NotFound();
-    }
-
-    studentRepo.DeleteStudent(id);
-
-    return Results.NoContent();
-});
-
 app.Run();
