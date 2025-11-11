@@ -61,7 +61,27 @@ namespace StudentsApi.Services
 
         public Student UpdateStudent(Guid id, CreateStudentRequest studentRequest)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var updateStudent = new Student(
+                    studentRequest.Name,
+                    studentRequest.Email
+                    );
+
+                var isStudentUpdated = _repo.UpdateStudent(id, updateStudent);
+
+               if (isStudentUpdated is not null)
+                {
+                    return isStudentUpdated;
+                }
+
+                throw new Exception("Failed to update student.");
+            }
+            catch
+            {
+
+                throw;
+            }
         }
     }
 }

@@ -31,11 +31,26 @@ app.MapPost("/api/student", (CreateStudentRequest newStudent, IStudentService st
     try
     {
         var createdStudent = studentService.CreateStudent(newStudent);
+
         return Results.Created($"/api/student/{createdStudent.Id}", createdStudent);
     }
     catch (Exception ex)
     {
         return Results.Problem("An error occurred while adding the student.");
+    }
+});
+
+app.MapPut("/api/student/{id}", (Guid id, CreateStudentRequest studentRequest, IStudentService studentService) => {
+    try
+    {
+        var updatedStudent = studentService.UpdateStudent(id, studentRequest);
+
+        return Results.Ok(updatedStudent);
+    }
+    catch 
+    {
+
+        throw;
     }
 });
 
