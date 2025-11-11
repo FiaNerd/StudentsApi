@@ -10,6 +10,7 @@ builder.Services.AddOpenApi();
 builder.Services.AddControllers();
 
 builder.Services.AddSingleton<IStudentRepository, StudentRepository>();
+builder.Services.AddSingleton<ICourseRepository, CourseRepository>();
 builder.Services.AddSingleton<IStudentService, StudentService>();
 
 var app = builder.Build();
@@ -23,5 +24,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.MapGet("/api/course", (ICourseRepository courseRepo) => { 
+    return courseRepo.GetAllCourses();
+});
 
 app.Run();

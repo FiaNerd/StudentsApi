@@ -14,7 +14,6 @@ namespace StudentsApi.Repositories
 
         public IEnumerable<Student> GetAllStudents()
         {
-            // Fix: Specify the key selector explicitly for OrderBy
             return students.OrderBy(student => student.Name).ToList();
         }
 

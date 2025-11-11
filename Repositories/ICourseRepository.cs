@@ -4,7 +4,7 @@ namespace StudentsApi.Repositories
 {
     public interface ICourseRepository
     {
-        public Course GetAllCourses();
-        public Course GetCoursesById(Guid id);
+        public IEnumerable<Course> GetAllCourses();
+        public Course GetCourseById(Guid id);
     }
 }
