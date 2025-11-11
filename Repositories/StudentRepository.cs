@@ -1,4 +1,5 @@
 ﻿using StudentsApi.Models;
+using System.Data;
 
 namespace StudentsApi.Repositories
 {
@@ -29,15 +30,31 @@ namespace StudentsApi.Repositories
 
                 return true;
             }
-            catch (Exception)
+            catch
             {
 
                 throw;
             }
         }
-        public Student UpdateStudent(Guid id, Student student)
+        public Student UpdateStudent(Guid id, Student updateStudent)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var student = students.FirstOrDefault(s => s.Id == id);
+
+                if (student is not null)
+                { 
+                    student.Name = updateStudent.Name;
+                    student.Email = updateStudent.Email;
+                }
+
+                return student!;
+            }
+            catch 
+            {
+
+                throw;
+            }
         }
 
         public Student DeleteStudent(Guid id)
