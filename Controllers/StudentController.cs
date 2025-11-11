@@ -44,10 +44,10 @@ namespace StudentsApi.Controllers
 
                 return Created($"api/student/{createdStudent.Id}",createdStudent );
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
-                throw;
+                return BadRequest(ex);
             }
         }
 
