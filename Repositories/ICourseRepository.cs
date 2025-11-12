@@ -9,5 +9,6 @@ namespace StudentsApi.Repositories
         public Course? GetCourseById(Guid id);
         public bool CreateCourse(Course course);
         public Course UpdateCourse(Guid id, Course course);
+        public Course DeleteCourse(Guid id);
     }
 }

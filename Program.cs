@@ -80,4 +80,16 @@ app.MapPut("/api/course/{id}", (Guid id, Course course, ICourseRepository course
 	}
 });
 
+app.MapDelete("/api/course/{id}", (Guid id, ICourseRepository courseRepo) => {
+
+	var deleteCourse = courseRepo.DeleteCourse(id);
+
+	if (deleteCourse is not null)
+	{ 
+		return Results.NoContent();
+    }
+
+    throw new Exception("Course not found");
+});
+
 app.Run();

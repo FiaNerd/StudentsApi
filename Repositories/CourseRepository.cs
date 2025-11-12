@@ -58,5 +58,17 @@ namespace StudentsApi.Repositories
                 throw;
             }
         }
+
+        public Course DeleteCourse(Guid id)
+        {
+            var course = courses.FirstOrDefault(c => c.Id == id);
+
+            if (course is not null)
+            { 
+                courses.Remove(course);
+            }
+
+            return course!;
+        }
     }
 }
