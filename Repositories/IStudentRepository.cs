@@ -1,4 +1,5 @@
 ﻿using StudentsApi.Models;
+using StudentsApi.Services;
 
 namespace StudentsApi.Repositories
 {

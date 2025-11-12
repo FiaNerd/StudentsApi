@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Http.HttpResults;
+using StudentsApi.Models;
 using StudentsApi.Repositories;
 using StudentsApi.Services;
 
@@ -36,6 +38,20 @@ app.MapGet("/api/course/{id}", (Guid id, ICourseRepository courseRepo) =>
 		var courseById = courseRepo.GetCourseById(id);
 
 		return Results.Ok(courseById);
+    }
+	catch (Exception)
+	{
+
+		throw;
+	}
+});
+
+app.MapPost("/api/course",(Course course, ICourseRepository courseRepo) => {
+	try
+	{
+		var addCourse = courseRepo.CreateCourse(course);
+
+		return Results.Created("/api/course", addCourse);
     }
 	catch (Exception)
 	{
