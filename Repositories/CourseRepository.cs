@@ -37,5 +37,26 @@ namespace StudentsApi.Repositories
                 throw;
             }
         }
+
+        public Course UpdateCourse(Guid id, Course courseRepo)
+        {
+            try
+            {
+                var updateCourse = courses.FirstOrDefault(c => c.Id == id);
+
+                if (updateCourse is not null)
+                {
+                    updateCourse.Title = courseRepo.Title;
+                    updateCourse.Description = courseRepo.Description;
+                }
+
+                return updateCourse!;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
     }
 }

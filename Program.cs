@@ -60,4 +60,24 @@ app.MapPost("/api/course",(Course course, ICourseRepository courseRepo) => {
 	}
 });
 
+app.MapPut("/api/course/{id}", (Guid id, Course course, ICourseRepository courseRepository) => {
+	try
+	{
+		var updateCourse = courseRepository.UpdateCourse(id, course);
+
+		if (updateCourse is not null)
+		{ 
+			updateCourse.Title = course.Title;
+			updateCourse.Description = course.Description;
+        }
+
+        return Results.Ok(updateCourse);
+    }
+	catch (Exception)
+	{
+
+		throw;
+	}
+});
+
 app.Run();
