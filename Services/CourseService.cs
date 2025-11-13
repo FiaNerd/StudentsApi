@@ -81,7 +81,14 @@ namespace StudentsApi.Services
 
         public Course DeleteCourse(Guid id)
         {
-            throw new NotImplementedException();
+            var courseDeleted = _repo.DeleteCourse(id);
+
+            if (courseDeleted is null)
+            {
+                throw new KeyNotFoundException($"Course with {id} could not be found!");
+            }
+
+            return courseDeleted;
         }
     }
 }

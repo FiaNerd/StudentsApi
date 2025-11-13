@@ -81,9 +81,9 @@ app.MapPut("/api/course/{id}", (Guid id, CreateCourseRequest courseRequest, ICou
 	}
 });
 
-app.MapDelete("/api/course/{id}", (Guid id, ICourseRepository courseRepo) => {
+app.MapDelete("/api/course/{id}", (Guid id, ICourseService courseService) => {
 
-	var deleteCourse = courseRepo.DeleteCourse(id);
+	var deleteCourse = courseService.DeleteCourse(id);
 
 	if (deleteCourse is not null)
 	{ 
