@@ -14,6 +14,7 @@ builder.Services.AddControllers();
 builder.Services.AddSingleton<IStudentRepository, StudentRepository>();
 builder.Services.AddSingleton<ICourseRepository, CourseRepository>();
 builder.Services.AddSingleton<IStudentService, StudentService>();
+builder.Services.AddSingleton<ICourseService, CourseService>();
 
 var app = builder.Build();
 
@@ -27,8 +28,8 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.MapGet("/api/course", (ICourseRepository courseRepo) => { 
-    return Results.Ok(courseRepo.GetAllCourses());
+app.MapGet("/api/course", (ICourseService courseService) => { 
+    return Results.Ok(courseService.GetAllCourses());
 });
 
 app.MapGet("/api/course/{id}", (Guid id, ICourseRepository courseRepo) =>
@@ -46,10 +47,10 @@ app.MapGet("/api/course/{id}", (Guid id, ICourseRepository courseRepo) =>
 	}
 });
 
-app.MapPost("/api/course",(Course course, ICourseRepository courseRepo) => {
+app.MapPost("/api/course",(CreateCourseRequest courseRequest, ICourseService courseService) => {
 	try
 	{
-		var addCourse = courseRepo.CreateCourse(course);
+		var addCourse = courseService.CreateCourse(courseRequest);
 
 		return Results.Created("/api/course", addCourse);
     }
@@ -60,15 +61,15 @@ app.MapPost("/api/course",(Course course, ICourseRepository courseRepo) => {
 	}
 });
 
-app.MapPut("/api/course/{id}", (Guid id, Course course, ICourseRepository courseRepository) => {
+app.MapPut("/api/course/{id}", (Guid id, CreateCourseRequest courseRequest, ICourseService courseService) => {
 	try
 	{
-		var updateCourse = courseRepository.UpdateCourse(id, course);
+		var updateCourse = courseService.UpdateCourse(id, courseRequest);
 
 		if (updateCourse is not null)
 		{ 
-			updateCourse.Title = course.Title;
-			updateCourse.Description = course.Description;
+			updateCourse.Title = courseRequest.Title;
+			updateCourse.Description = courseRequest.Description;
         }
 
         return Results.Ok(updateCourse);

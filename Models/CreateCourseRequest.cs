@@ -1,4 +1,4 @@
-﻿namespace StudentsApi.Services
+﻿namespace StudentsApi.Models
 {
     public struct CreateCourseRequest (string title, string description)
     {
