@@ -47,5 +47,25 @@ namespace StudentsApi.Controllers
                 throw;
             }
         }
+
+        [HttpPost]
+        public ActionResult<Course> CreateCoure([FromBody] CreateCourseRequest courseRequest)
+        {
+            try
+            {
+                var addCourse = _service.CreateCourse(courseRequest);
+
+                if (addCourse == null)
+                {
+                    return BadRequest();
+                }
+
+                return Created($"/api/course/{addCourse.Id}", addCourse);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Sorry, couldnt create a new course", ex);
+            }
+        }
     }
 }
