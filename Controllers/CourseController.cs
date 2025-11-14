@@ -88,5 +88,27 @@ namespace StudentsApi.Controllers
                 throw;
             }
         }
+
+        [HttpDelete]
+        [Route("{id}")]
+        public ActionResult<Course> DeleteCourse(Guid id) 
+        {
+            try
+            {
+                var courseDelete = _service.DeleteCourse(id);
+
+                if (courseDelete == null)
+                {
+                    return NotFound();
+                }
+
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception("Could delete the course", ex);
+            }
+        }
     }
 }
