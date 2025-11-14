@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using StudentsApi.Models;
 using StudentsApi.Services;
-using System.Security.Cryptography.X509Certificates;
 
 namespace StudentsApi.Controllers
 {
