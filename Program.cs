@@ -28,69 +28,69 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.MapGet("/api/course", (ICourseService courseService) => { 
-    return Results.Ok(courseService.GetAllCourses());
-});
+//app.MapGet("/api/course", (ICourseService courseService) => { 
+//    return Results.Ok(courseService.GetAllCourses());
+//});
 
-app.MapGet("/api/course/{id}", (Guid id, ICourseRepository courseRepo) =>
-{
-	try
-	{
-		var courseById = courseRepo.GetCourseById(id);
+//app.MapGet("/api/course/{id}", (Guid id, ICourseRepository courseRepo) =>
+//{
+//	try
+//	{
+//		var courseById = courseRepo.GetCourseById(id);
 
-		return Results.Ok(courseById);
-    }
-	catch (Exception)
-	{
+//		return Results.Ok(courseById);
+//    }
+//	catch (Exception)
+//	{
 
-		throw;
-	}
-});
+//		throw;
+//	}
+//});
 
-app.MapPost("/api/course",(CreateCourseRequest courseRequest, ICourseService courseService) => {
-	try
-	{
-		var addCourse = courseService.CreateCourse(courseRequest);
+//app.MapPost("/api/course",(CreateCourseRequest courseRequest, ICourseService courseService) => {
+//	try
+//	{
+//		var addCourse = courseService.CreateCourse(courseRequest);
 
-		return Results.Created("/api/course", addCourse);
-    }
-	catch (Exception)
-	{
+//		return Results.Created("/api/course", addCourse);
+//    }
+//	catch (Exception)
+//	{
 
-		throw;
-	}
-});
+//		throw;
+//	}
+//});
 
-app.MapPut("/api/course/{id}", (Guid id, CreateCourseRequest courseRequest, ICourseService courseService) => {
-	try
-	{
-		var updateCourse = courseService.UpdateCourse(id, courseRequest);
+//app.MapPut("/api/course/{id}", (Guid id, CreateCourseRequest courseRequest, ICourseService courseService) => {
+//	try
+//	{
+//		var updateCourse = courseService.UpdateCourse(id, courseRequest);
 
-		if (updateCourse is not null)
-		{ 
-			updateCourse.Title = courseRequest.Title;
-			updateCourse.Description = courseRequest.Description;
-        }
+//		if (updateCourse is not null)
+//		{ 
+//			updateCourse.Title = courseRequest.Title;
+//			updateCourse.Description = courseRequest.Description;
+//        }
 
-        return Results.Ok(updateCourse);
-    }
-	catch (Exception)
-	{
+//        return Results.Ok(updateCourse);
+//    }
+//	catch (Exception)
+//	{
 
-		throw;
-	}
-});
+//		throw;
+//	}
+//});
 
-app.MapDelete("/api/course/{id}", (Guid id, ICourseService courseService) => {
+//app.MapDelete("/api/course/{id}", (Guid id, ICourseService courseService) => {
 
-	var deleteCourse = courseService.DeleteCourse(id);
+//	var deleteCourse = courseService.DeleteCourse(id);
 
-	if (deleteCourse is not null)
-	{ 
-		return Results.NoContent();
-    }
+//	if (deleteCourse is not null)
+//	{ 
+//		return Results.NoContent();
+//    }
 
-    throw new Exception("Course not found");
-});
+//    throw new Exception("Course not found");
+//});
 
 app.Run();
