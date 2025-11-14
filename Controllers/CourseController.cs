@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using StudentsApi.Models;
 using StudentsApi.Services;
 
@@ -64,7 +63,29 @@ namespace StudentsApi.Controllers
             }
             catch (Exception ex)
             {
-                throw new Exception("Sorry, couldnt create a new course", ex);
+                throw new Exception("Sorry, couldn`t create a new course", ex);
+            }
+        }
+
+        [HttpPut]
+        [Route("{id}")]
+        public ActionResult<Course> UpdateCourse(Guid id, [FromBody] CreateCourseRequest courseRequest)
+        {
+            try
+            {
+                var updateCouse = _service.UpdateCourse(id, courseRequest);
+
+                if (updateCouse == null)
+                {
+                    return NotFound("Couldn't find the course");
+                }
+
+                return Ok(updateCouse);
+            }
+            catch (Exception)
+            {
+
+                throw;
             }
         }
     }
