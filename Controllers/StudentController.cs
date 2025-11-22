@@ -41,21 +41,21 @@ namespace StudentsApi.Controllers
             }
         }
 
-        //[HttpPost]
-        //public ActionResult<Student> CreateStudent([FromBody] CreateStudentRequest studentRequest)
-        //{
-        //    try
-        //    {
-        //       var createdStudent = _studentService.CreateStudent(studentRequest);
+        [HttpPost]
+        public ActionResult<Student> CreateStudent([FromBody] CreateStudentRequest studentRequest)
+        {
+            try
+            {
+                var createdStudent = _studentService.CreateStudent(studentRequest);
 
-        //        return Created($"api/student/{createdStudent.Id}",createdStudent );
-        //    }
-        //    catch (Exception ex)
-        //    {
+                return Created($"api/student/{createdStudent.Id}", createdStudent);
+            }
+            catch (Exception ex)
+            {
 
-        //        return BadRequest(ex);
-        //    }
-        //}
+                return BadRequest(ex);
+            }
+        }
 
         //[HttpPut("{id}")]
         //public ActionResult<Student> UpdateStudent(Guid id, [FromBody] CreateStudentRequest studentRequest)
