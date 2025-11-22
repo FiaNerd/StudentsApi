@@ -25,20 +25,30 @@ namespace StudentsApi.Repositories
 
             return await _context.Students.FindAsync(id);
         }
-        //public bool CreateStudent(Student student)
-        //{
-        //    try
-        //    {
-        //        students.Add(student);
 
-        //        return true;
-        //    }
-        //    catch
-        //    {
+        public async Task<Student> CreateStudent(Student student)
+        {
+            try
+            {
+                var result = await _context.Students.AddAsync(student);
 
-        //        throw;
-        //    }
-        //}
+                var saveResult = await _context.SaveChangesAsync();
+
+                if (saveResult > 0)
+                {
+                    return result.Entity;
+                }
+                else
+                {
+                    throw new Exception("Failed to save the student to the database.");
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("An error occurred while creating the student.", ex);
+            }
+        }
+
         //public Student UpdateStudent(Guid id, Student updateStudent)
         //{
         //    try

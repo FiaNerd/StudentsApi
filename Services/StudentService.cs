@@ -36,28 +36,29 @@ namespace StudentsApi.Services
             }
         }
 
-        //public Student CreateStudent(CreateStudentRequest studentRequest)
-        //{
-        //    try {
-        //        var newSudent = new Student(
-        //            studentRequest.Name,
-        //            studentRequest.Email
-        //            );
+        public async Task<Student> CreateStudent(CreateStudentRequest studentRequest)
+        {
+            try
+            {
+                var newSudent = new Student(
+                    studentRequest.Name,
+                    studentRequest.Email
+                    );
 
-        //        bool isSuccess = _repo.CreateStudent(newSudent);
+                var isSuccess = await _repo.CreateStudent(newSudent);
 
-        //        if(isSuccess)
-        //        {
-        //            return newSudent;
-        //        }
+                if (isSuccess is not null) 
+                {
+                    return isSuccess;
+                }
 
-        //        throw new Exception("Failed to create student.");
-        //    }
-        //    catch 
-        //    {
-        //        throw;
-        //    }
-        //}
+                    throw new Exception("Failed to create student.");
+            }
+            catch
+            {
+                throw;
+            }
+        }
 
         //public Student UpdateStudent(Guid id, CreateStudentRequest studentRequest)
         //{
