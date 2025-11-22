@@ -22,53 +22,60 @@ namespace StudentsApi.Controllers
         }
 
         [HttpGet("{id}")]
-        public ActionResult<Student> GetStudentById(Guid id)
-        {
-            var student = _studentService.GetStudentById(id);
-
-            if (student == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(student);
-        }
-
-        [HttpPost]
-        public ActionResult<Student> CreateStudent([FromBody] CreateStudentRequest studentRequest)
+        public async Task<ActionResult<Student?>> GetStudentById(Guid id)
         {
             try
             {
-               var createdStudent = _studentService.CreateStudent(studentRequest);
+                var student = await _studentService.GetStudentById(id);
 
-                return Created($"api/student/{createdStudent.Id}",createdStudent );
-            }
-            catch (Exception ex)
-            {
-
-                return BadRequest(ex);
-            }
-        }
-
-        [HttpPut("{id}")]
-        public ActionResult<Student> UpdateStudent(Guid id, [FromBody] CreateStudentRequest studentRequest)
-        {
-            try
-            {
-                var updatedStudent = _studentService.UpdateStudent(id, studentRequest);
-
-                if(updatedStudent == null)
+                if (student == null)
                 {
                     return NotFound();
                 }
 
-                return Ok(updatedStudent);
+                return Ok(student);
             }
-            catch
+            catch (Exception)
             {
-
-                throw;
+                return BadRequest();
             }
         }
+
+        //[HttpPost]
+        //public ActionResult<Student> CreateStudent([FromBody] CreateStudentRequest studentRequest)
+        //{
+        //    try
+        //    {
+        //       var createdStudent = _studentService.CreateStudent(studentRequest);
+
+        //        return Created($"api/student/{createdStudent.Id}",createdStudent );
+        //    }
+        //    catch (Exception ex)
+        //    {
+
+        //        return BadRequest(ex);
+        //    }
+        //}
+
+        //[HttpPut("{id}")]
+        //public ActionResult<Student> UpdateStudent(Guid id, [FromBody] CreateStudentRequest studentRequest)
+        //{
+        //    try
+        //    {
+        //        var updatedStudent = _studentService.UpdateStudent(id, studentRequest);
+
+        //        if(updatedStudent == null)
+        //        {
+        //            return NotFound();
+        //        }
+
+        //        return Ok(updatedStudent);
+        //    }
+        //    catch
+        //    {
+
+        //        throw;
+        //    }
+        //}
     }
 }

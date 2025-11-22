@@ -23,11 +23,11 @@ namespace StudentsApi.Services
             }
         }
 
-        public Student? GetStudentById(Guid id)
+        public async Task<Student?> GetStudentById(Guid id)
         {
             try
             {
-                return _repo.GetStudentById(id);
+                return await _repo.GetStudentById(id);
             }
             catch (Exception)
             {
@@ -36,59 +36,59 @@ namespace StudentsApi.Services
             }
         }
 
-        public Student CreateStudent(CreateStudentRequest studentRequest)
-        {
-            try {
-                var newSudent = new Student(
-                    studentRequest.Name,
-                    studentRequest.Email
-                    );
+        //public Student CreateStudent(CreateStudentRequest studentRequest)
+        //{
+        //    try {
+        //        var newSudent = new Student(
+        //            studentRequest.Name,
+        //            studentRequest.Email
+        //            );
 
-                bool isSuccess = _repo.CreateStudent(newSudent);
+        //        bool isSuccess = _repo.CreateStudent(newSudent);
 
-                if(isSuccess)
-                {
-                    return newSudent;
-                }
+        //        if(isSuccess)
+        //        {
+        //            return newSudent;
+        //        }
 
-                throw new Exception("Failed to create student.");
-            }
-            catch 
-            {
-                throw;
-            }
-        }
+        //        throw new Exception("Failed to create student.");
+        //    }
+        //    catch 
+        //    {
+        //        throw;
+        //    }
+        //}
 
-        public Student UpdateStudent(Guid id, CreateStudentRequest studentRequest)
-        {
-            try
-            {
-                var updateStudent = new Student(
-                    studentRequest.Name,
-                    studentRequest.Email
-                    );
+        //public Student UpdateStudent(Guid id, CreateStudentRequest studentRequest)
+        //{
+        //    try
+        //    {
+        //        var updateStudent = new Student(
+        //            studentRequest.Name,
+        //            studentRequest.Email
+        //            );
 
-                var isStudentUpdated = _repo.UpdateStudent(id, updateStudent);
+        //        var isStudentUpdated = _repo.UpdateStudent(id, updateStudent);
 
-               if (isStudentUpdated is not null)
-                {
-                    return isStudentUpdated;
-                }
+        //       if (isStudentUpdated is not null)
+        //        {
+        //            return isStudentUpdated;
+        //        }
 
-                throw new Exception("Failed to update student.");
-            }
-            catch
-            {
+        //        throw new Exception("Failed to update student.");
+        //    }
+        //    catch
+        //    {
 
-                throw;
-            }
-        }
+        //        throw;
+        //    }
+        //}
 
-        public Student DeleteStudent(Guid id)
-        {
-            var deletedStudent = _repo.DeleteStudent(id);
+        //public Student DeleteStudent(Guid id)
+        //{
+        //    var deletedStudent = _repo.DeleteStudent(id);
 
-            return deletedStudent;
-        }
+        //    return deletedStudent;
+        //}
     }
 }

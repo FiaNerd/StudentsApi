@@ -16,11 +16,11 @@ builder.Services.AddDbContext<ApplicationDbContext>(
 builder.Services.AddControllers();
 
 builder.Services.AddScoped<IStudentRepository, StudentRepository>();
-builder.Services.AddSingleton<ICourseRepository, CourseRepository>();
-builder.Services.AddSingleton<ICourseInstanceRepository, CourseInstanceRepository>();
+//builder.Services.AddSingleton<ICourseRepository, CourseRepository>();
+//builder.Services.AddSingleton<ICourseInstanceRepository, CourseInstanceRepository>();
 
-builder.Services.AddSingleton<IStudentService, StudentService>();
-builder.Services.AddSingleton<ICourseService, CourseService>();
+builder.Services.AddScoped<IStudentService, StudentService>();
+//builder.Services.AddScoped<ICourseService, CourseService>();
 
 var app = builder.Build();
 
@@ -34,26 +34,26 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.MapGet("/api/course-instance", (ICourseInstanceRepository courseRepo) =>
-{
-    var courseInstances = courseRepo.GetAllCourseInstance()
-        .Select(ci => new
-        {
-            ci.Id,
-            ci.StartDate,
-            ci.EndDate
-        });
+//app.MapGet("/api/course-instance", (ICourseInstanceRepository courseRepo) =>
+//{
+//    var courseInstances = courseRepo.GetAllCourseInstance()
+//        .Select(ci => new
+//        {
+//            ci.Id,
+//            ci.StartDate,
+//            ci.EndDate
+//        });
 
-    return Results.Ok(courseInstances);
-});
+//    return Results.Ok(courseInstances);
+//});
 
-app.MapGet("/api/student/{id}/courses", (Guid id, ICourseInstanceRepository courseInstanceRepo) =>
-{
-    var courses = courseInstanceRepo.GetCoursesByStudent(id)
-        .Select(ci => ci.Course);
+//app.MapGet("/api/student/{id}/courses", (Guid id, ICourseInstanceRepository courseInstanceRepo) =>
+//{
+//    var courses = courseInstanceRepo.GetCoursesByStudent(id)
+//        .Select(ci => ci.Course);
 
-    return Results.Ok(courses);
-});
+//    return Results.Ok(courses);
+//});
 
 //app.MapPost("/api/course",(CreateCourseRequest courseRequest, ICourseService courseService) => {
 //	try

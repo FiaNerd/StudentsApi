@@ -1,78 +1,82 @@
 ﻿using StudentsApi.Models;
+using StudentsApi.Persistence;
 using System.Data;
 
 namespace StudentsApi.Repositories
 {
     public class StudentRepository : IStudentRepository
     {
-        private readonly List<Student> students = new()
-                {
-                    new Student("Alice", "no@mail.com"),
-                    new Student("Bob", "mail@nomail.com"),
-                    new Student("Charlie", "nomail@nomail.com")
-                };
+        private readonly ApplicationDbContext _context;
 
+        public StudentRepository(ApplicationDbContext context)
+        {
+            _context = context;
+        }
         public IEnumerable<Student> GetAllStudents()
         {
-            return students.OrderBy(student => student.Name).ToList();
+            _context.Database.EnsureCreated();
+
+            return _context.Students.OrderBy(student => student.Name).ToList();
         }
 
-        public Student? GetStudentById(Guid id)
+        public async Task<Student?> GetStudentById(Guid id)
         {
-            return students.FirstOrDefault(s => s.Id == id);
+            _context.Database.EnsureCreated();
+
+            return await _context.Students.FindAsync(id);
         }
-        public bool CreateStudent(Student student)
-        {
-            try
-            {
-                students.Add(student);
+        //public bool CreateStudent(Student student)
+        //{
+        //    try
+        //    {
+        //        students.Add(student);
 
-                return true;
-            }
-            catch
-            {
+        //        return true;
+        //    }
+        //    catch
+        //    {
 
-                throw;
-            }
-        }
-        public Student UpdateStudent(Guid id, Student updateStudent)
-        {
-            try
-            {
-                var student = students.FirstOrDefault(s => s.Id == id);
+        //        throw;
+        //    }
+        //}
+        //public Student UpdateStudent(Guid id, Student updateStudent)
+        //{
+        //    try
+        //    {
+        //        var student = students.FirstOrDefault(s => s.Id == id);
 
-                if (student is not null)
-                { 
-                    student.Name = updateStudent.Name;
-                    student.Email = updateStudent.Email;
-                }
+        //        if (student is not null)
+        //        { 
+        //            student.Name = updateStudent.Name;
+        //            student.Email = updateStudent.Email;
+        //        }
 
-                return student!;
-            }
-            catch 
-            {
+        //        return student!;
+        //    }
+        //    catch 
+        //    {
 
-                throw;
-            }
-        }
+        //        throw;
+        //    }
+        //}
 
-        public Student DeleteStudent(Guid id)
-        {
-            try
-            {
-                var student = students.FirstOrDefault(s => s.Id == id);
+        //public Student DeleteStudent(Guid id)
+        //{
+        //    try
+        //    {
+        //        var student = students.FirstOrDefault(s => s.Id == id);
 
-                if (student is not null)
-                {
-                    students.Remove(student);
-                }
+        //        if (student is not null)
+        //        {
+        //            students.Remove(student);
+        //        }
 
-                return student!;
-            }
-            catch
-            {
-                throw;
-            }
-        }
+        //        return student!;
+        //    }
+        //    catch
+        //    {
+        //        throw;
+        //    }
+        //}
     }
 }
