@@ -3,7 +3,8 @@
 namespace StudentsApi.Repositories
 {
     public interface ICourseInstanceRepository
-    {
-        public IEnumerable<CourseInstance> GetAllCourseInstance();
+    {   
+        IEnumerable<CourseInstance> GetAllCourseInstance();
+        IEnumerable<CourseInstance> GetCoursesByStudent(Guid studentId);
     }
 }

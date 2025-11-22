@@ -13,6 +13,8 @@ builder.Services.AddControllers();
 
 builder.Services.AddSingleton<IStudentRepository, StudentRepository>();
 builder.Services.AddSingleton<ICourseRepository, CourseRepository>();
+builder.Services.AddSingleton<ICourseInstanceRepository, CourseInstanceRepository>();
+
 builder.Services.AddSingleton<IStudentService, StudentService>();
 builder.Services.AddSingleton<ICourseService, CourseService>();
 
@@ -28,24 +30,26 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-//app.MapGet("/api/course", (ICourseService courseService) => { 
-//    return Results.Ok(courseService.GetAllCourses());
-//});
+app.MapGet("/api/course-instance", (ICourseInstanceRepository courseRepo) =>
+{
+    var courseInstances = courseRepo.GetAllCourseInstance()
+        .Select(ci => new
+        {
+            ci.Id,
+            ci.StartDate,
+            ci.EndDate
+        });
 
-//app.MapGet("/api/course/{id}", (Guid id, ICourseRepository courseRepo) =>
-//{
-//	try
-//	{
-//		var courseById = courseRepo.GetCourseById(id);
+    return Results.Ok(courseInstances);
+});
 
-//		return Results.Ok(courseById);
-//    }
-//	catch (Exception)
-//	{
+app.MapGet("/api/student/{id}/courses", (Guid id, ICourseInstanceRepository courseInstanceRepo) =>
+{
+    var courses = courseInstanceRepo.GetCoursesByStudent(id)
+        .Select(ci => ci.Course);
 
-//		throw;
-//	}
-//});
+    return Results.Ok(courses);
+});
 
 //app.MapPost("/api/course",(CreateCourseRequest courseRequest, ICourseService courseService) => {
 //	try
