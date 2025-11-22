@@ -1,5 +1,5 @@
-using Microsoft.AspNetCore.Http.HttpResults;
-using StudentsApi.Models;
+using Microsoft.EntityFrameworkCore;
+using StudentsApi.Persistence;
 using StudentsApi.Repositories;
 using StudentsApi.Services;
 
@@ -9,9 +9,13 @@ var builder = WebApplication.CreateBuilder(args);
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
+builder.Services.AddDbContext<ApplicationDbContext>(
+    options => options.UseInMemoryDatabase("StudentTestData")
+    );
+
 builder.Services.AddControllers();
 
-builder.Services.AddSingleton<IStudentRepository, StudentRepository>();
+builder.Services.AddScoped<IStudentRepository, StudentRepository>();
 builder.Services.AddSingleton<ICourseRepository, CourseRepository>();
 builder.Services.AddSingleton<ICourseInstanceRepository, CourseInstanceRepository>();
 

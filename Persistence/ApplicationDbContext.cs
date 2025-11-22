@@ -4,7 +4,7 @@ using StudentsApi.Models;
 
 namespace StudentsApi.Persistence
 {
-    public class ApplicationContext(DbContextOptions<ApplicationContext> options) : DbContext(options)
+    public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : DbContext(options)
     {
         public DbSet<Student> Students
         {
