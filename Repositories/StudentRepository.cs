@@ -72,23 +72,28 @@ namespace StudentsApi.Repositories
             }
         }
 
-        //public Student DeleteStudent(Guid id)
-        //{
-        //    try
-        //    {
-        //        var student = students.FirstOrDefault(s => s.Id == id);
+        public async Task<Student?> DeleteStudent(Guid id)
+        {
+            try
+            {
+                var student = await _context.Students.FindAsync(id);
 
-        //        if (student is not null)
-        //        {
-        //            students.Remove(student);
-        //        }
+                if (student is not null)
+                {
+                   _context.Students.Remove(student);
 
-        //        return student!;
-        //    }
-        //    catch
-        //    {
-        //        throw;
-        //    }
-        //}
+                    await _context.SaveChangesAsync();
+
+                    return student!;
+                }
+
+                throw new Exception($"Student not found with {id}.");
+
+            }
+            catch
+            {
+                throw;
+            }
+        }
     }
 }

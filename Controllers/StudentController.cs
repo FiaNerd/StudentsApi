@@ -42,7 +42,7 @@ namespace StudentsApi.Controllers
         }
 
         [HttpPost]
-        public ActionResult<Student> CreateStudent([FromBody] CreateStudentRequest studentRequest)
+        public async Task<ActionResult<Student>> CreateStudent([FromBody] CreateStudentRequest studentRequest)
         {
             try
             {
@@ -51,7 +51,7 @@ namespace StudentsApi.Controllers
                     return ValidationProblem(ModelState);
                 }
 
-                var createdStudent = _studentService.CreateStudent(studentRequest);
+                var createdStudent = await _studentService.CreateStudent(studentRequest);
 
                 return Created($"api/student/{createdStudent.Id}", createdStudent);
             }
@@ -62,25 +62,25 @@ namespace StudentsApi.Controllers
             }
         }
 
-        //[HttpPut("{id}")]
-        //public ActionResult<Student> UpdateStudent(Guid id, [FromBody] CreateStudentRequest studentRequest)
-        //{
-        //    try
-        //    {
-        //        var updatedStudent = _studentService.UpdateStudent(id, studentRequest);
+        [HttpPut("{id}")]
+        public async Task<ActionResult<Student?>> UpdateStudent(Guid id, [FromBody] CreateStudentRequest studentRequest)
+        {
+            try
+            {
+                var updatedStudent = await _studentService.UpdateStudent(id, studentRequest);
 
-        //        if(updatedStudent == null)
-        //        {
-        //            return NotFound();
-        //        }
+                if (updatedStudent == null)
+                {
+                    return NotFound($"Can not find the student with id {id}");
+                }
 
-        //        return Ok(updatedStudent);
-        //    }
-        //    catch
-        //    {
+                return NoContent();
+            }
+            catch
+            {
 
-        //        throw;
-        //    }
-        //}
+                throw;
+            }
+        }
     }
 }

@@ -67,7 +67,10 @@ namespace StudentsApi.Services
                 var updateStudent = new Student(
                     studentRequest.Name,
                     studentRequest.Email
-                    );
+                    )
+                { 
+                    Id = id
+                };
 
                 var isStudentUpdated = await _repo.UpdateStudent(id, updateStudent);
 
