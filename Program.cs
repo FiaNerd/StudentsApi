@@ -10,7 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddOpenApi();
 
 builder.Services.AddDbContext<ApplicationDbContext>(
-    options => options.UseInMemoryDatabase("StudentTestData")
+    options => options.UseInMemoryDatabase("StudentDb")
     );
 
 builder.Services.AddControllers();
