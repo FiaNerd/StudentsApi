@@ -88,11 +88,13 @@ namespace StudentsApi.Services
             }
         }
 
-        //public Student DeleteStudent(Guid id)
-        //{
-        //    var deletedStudent = _repo.DeleteStudent(id);
+        public async Task<Student?> DeleteStudent(Guid id)
+        {
+            var deletedStudent = await _repo.DeleteStudent(id);
 
-        //    return deletedStudent;
-        //}
+            return deletedStudent == null ? 
+                  throw new InvalidOperationException($"Student with ID {id} could not be deleted because it does not exist.")
+                : deletedStudent;
+        }
     }
 }

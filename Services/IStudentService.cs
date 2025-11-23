@@ -8,6 +8,6 @@ namespace StudentsApi.Services
         public Task<Student?> GetStudentById(Guid id);
         public Task<Student> CreateStudent(CreateStudentRequest student);
         public Task<Student?> UpdateStudent(Guid id, CreateStudentRequest updateStudent);
-        //public Student? DeleteStudent(Guid id);
+        public Task<Student?> DeleteStudent(Guid id);
     }
 }
