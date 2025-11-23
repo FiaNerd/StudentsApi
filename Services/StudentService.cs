@@ -60,30 +60,30 @@ namespace StudentsApi.Services
             }
         }
 
-        //public Student UpdateStudent(Guid id, CreateStudentRequest studentRequest)
-        //{
-        //    try
-        //    {
-        //        var updateStudent = new Student(
-        //            studentRequest.Name,
-        //            studentRequest.Email
-        //            );
+        public async Task<Student?> UpdateStudent(Guid id, CreateStudentRequest studentRequest)
+        {
+            try
+            {
+                var updateStudent = new Student(
+                    studentRequest.Name,
+                    studentRequest.Email
+                    );
 
-        //        var isStudentUpdated = _repo.UpdateStudent(id, updateStudent);
+                var isStudentUpdated = await _repo.UpdateStudent(id, updateStudent);
 
-        //       if (isStudentUpdated is not null)
-        //        {
-        //            return isStudentUpdated;
-        //        }
+                if (isStudentUpdated is not null)
+                {
+                    return isStudentUpdated;
+                }
 
-        //        throw new Exception("Failed to update student.");
-        //    }
-        //    catch
-        //    {
+                throw new Exception("Failed to update student.");
+            }
+            catch
+            {
 
-        //        throw;
-        //    }
-        //}
+                throw;
+            }
+        }
 
         //public Student DeleteStudent(Guid id)
         //{
