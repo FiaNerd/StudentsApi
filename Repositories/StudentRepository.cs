@@ -49,26 +49,28 @@ namespace StudentsApi.Repositories
             }
         }
 
-        //public Student UpdateStudent(Guid id, Student updateStudent)
-        //{
-        //    try
-        //    {
-        //        var student = students.FirstOrDefault(s => s.Id == id);
+        public async Task<Student?> UpdateStudent(Guid id, Student updateStudent)
+        {
+            try
+            {
+                var existingStudent = await _context.Students.FindAsync(id);
 
-        //        if (student is not null)
-        //        { 
-        //            student.Name = updateStudent.Name;
-        //            student.Email = updateStudent.Email;
-        //        }
+                if (existingStudent == null)
+                {
+                    throw new Exception($"Student not found with {id}.");
+                }
 
-        //        return student!;
-        //    }
-        //    catch 
-        //    {
+                _context.Entry(existingStudent).CurrentValues.SetValues(updateStudent);
 
-        //        throw;
-        //    }
-        //}
+                await _context.SaveChangesAsync();
+
+                return existingStudent;
+            }
+            catch
+            {
+                throw;
+            }
+        }
 
         //public Student DeleteStudent(Guid id)
         //{

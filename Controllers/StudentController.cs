@@ -46,6 +46,11 @@ namespace StudentsApi.Controllers
         {
             try
             {
+                if(!ModelState.IsValid)
+                {
+                    return ValidationProblem(ModelState);
+                }
+
                 var createdStudent = _studentService.CreateStudent(studentRequest);
 
                 return Created($"api/student/{createdStudent.Id}", createdStudent);

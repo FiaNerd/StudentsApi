@@ -7,7 +7,7 @@ namespace StudentsApi.Repositories
         public IEnumerable<Student> GetAllStudents();
         public Task<Student?> GetStudentById(Guid id);
         public Task<Student> CreateStudent(Student student);
-        //public Student? UpdateStudent(Guid id, Student updateStudent);
+        public Task<Student?> UpdateStudent(Guid id, Student updateStudent);
         //public Student? DeleteStudent(Guid id);
     }
 }
