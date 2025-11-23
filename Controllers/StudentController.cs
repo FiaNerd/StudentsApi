@@ -82,5 +82,25 @@ namespace StudentsApi.Controllers
                 throw;
             }
         }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<Student?>> DeleteStudent(Guid id)
+        {
+            try
+            {
+                var deletedStudent = await _studentService.DeleteStudent(id);
+
+                if (deletedStudent == null)
+                {
+                    return NotFound($"Can not find the student with id {id}");
+                }
+
+                return NoContent();
+            }
+            catch
+            {
+                throw;
+            }
+        }
     }
 }
