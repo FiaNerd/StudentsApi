@@ -26,21 +26,30 @@ namespace StudentsApi.Repositories
             return course;
         }
 
-        //public bool CreateCourse(Course course)
-        //{
-        //    try
-        //    {
-        //          courses.Add(course);
+        public async Task<Course> CreateCourse(Course course)
+        {
+            try
+            {
+                var result = await _context.Courses.AddAsync(course);
 
-        //        return true;
+                var saveResult = await _context.SaveChangesAsync();
 
-        //    }
-        //    catch (Exception)
-        //    {
+                if(saveResult > 0)
+                {
+                    return result.Entity;
+                }
+                else
+                {
+                    throw new Exception("Failed to save the course to the database.");
 
-        //        throw;
-        //    }
-        //}
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
 
         //public Course UpdateCourse(Guid id, Course courseRepo)
         //{
