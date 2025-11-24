@@ -1,74 +1,78 @@
-﻿using StudentsApi.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using StudentsApi.Models;
+using StudentsApi.Persistence;
 
 namespace StudentsApi.Repositories
 {
     public class CourseRepository : ICourseRepository
     {
-        private readonly List<Course> courses = new()
-   {
-         new Course("Mathematics", "An introduction to mathematical concepts."),
-         new Course("History", "A study of historical events and figures."),
-         new Course("Biology", "Exploring the science of life and living organisms.")
-   };
+        public readonly ApplicationDbContext _context;
 
-        public IEnumerable<Course> GetAllCourses()
+        public CourseRepository(ApplicationDbContext context)
         {
-            return courses.OrderBy(course => course.Title).ToList();
+            _context = context;
         }
 
-        public Course? GetCourseById(Guid id)
+        public async Task<IEnumerable<Course>> GetAllCourses()
         {
-            var course = courses.FirstOrDefault(c => c.Id == id);
-            return course!;
+            _context.Database.EnsureCreated();
+            return await _context.Courses.OrderBy(course => course.Title).ToListAsync();
         }
 
-        public bool CreateCourse(Course course)
+        public async Task<Course?> GetCourseById(Guid id)
         {
-            try
-            {
-                  courses.Add(course);
-
-                return true;
-
-            }
-            catch (Exception)
-            {
-
-                throw;
-            }
+            _context.Database.EnsureCreated();
+            var course = await _context.Courses.FindAsync(id);
+            return course;
         }
 
-        public Course UpdateCourse(Guid id, Course courseRepo)
-        {
-            try
-            {
-                var updateCourse = courses.FirstOrDefault(c => c.Id == id);
+        //public bool CreateCourse(Course course)
+        //{
+        //    try
+        //    {
+        //          courses.Add(course);
 
-                if (updateCourse is not null)
-                {
-                    updateCourse.Title = courseRepo.Title;
-                    updateCourse.Description = courseRepo.Description;
-                }
+        //        return true;
 
-                return updateCourse!;
-            }
-            catch (Exception)
-            {
+        //    }
+        //    catch (Exception)
+        //    {
 
-                throw;
-            }
-        }
+        //        throw;
+        //    }
+        //}
 
-        public Course DeleteCourse(Guid id)
-        {
-            var course = courses.FirstOrDefault(c => c.Id == id);
+        //public Course UpdateCourse(Guid id, Course courseRepo)
+        //{
+        //    try
+        //    {
+        //        var updateCourse = courses.FirstOrDefault(c => c.Id == id);
 
-            if (course is not null)
-            { 
-                courses.Remove(course);
-            }
+        //        if (updateCourse is not null)
+        //        {
+        //            updateCourse.Title = courseRepo.Title;
+        //            updateCourse.Description = courseRepo.Description;
+        //        }
 
-            return course!;
-        }
+        //        return updateCourse!;
+        //    }
+        //    catch (Exception)
+        //    {
+
+        //        throw;
+        //    }
+        //}
+
+        //public Course DeleteCourse(Guid id)
+        //{
+        //    var course = courses.FirstOrDefault(c => c.Id == id);
+
+        //    if (course is not null)
+        //    { 
+        //        courses.Remove(course);
+        //    }
+
+        //    return course!;
+        //}
     }
 }

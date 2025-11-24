@@ -16,14 +16,16 @@ namespace StudentsApi.Controllers
         }
 
         [HttpGet]
-        public ActionResult<Course> GetAllCourses()
+        public async Task<ActionResult<Course>> GetAllCourses()
         {
-            return Ok(_service.GetAllCourses());
+            var courses = await _service.GetAllCourses();
+         
+            return  Ok(courses);
         }
 
         [HttpGet]
         [Route("{id}")]
-        public ActionResult<Course?> GetCourseById(Guid id)
+        public async Task<ActionResult<Course?>> GetCourseById(Guid id)
         {
             try
             {
@@ -32,7 +34,7 @@ namespace StudentsApi.Controllers
                     return BadRequest($"The id: {id} is not valid");
                 }
 
-                var courseById = _service.GetCourseById(id);
+                var courseById = await _service.GetCourseById(id);
 
                 if (courseById == null)
                 { 
@@ -47,68 +49,68 @@ namespace StudentsApi.Controllers
             }
         }
 
-        [HttpPost]
-        public ActionResult<Course> CreateCoure([FromBody] CreateCourseRequest courseRequest)
-        {
-            try
-            {
-                var addCourse = _service.CreateCourse(courseRequest);
+        //[HttpPost]
+        //public ActionResult<Course> CreateCoure([FromBody] CreateCourseRequest courseRequest)
+        //{
+        //    try
+        //    {
+        //        var addCourse = _service.CreateCourse(courseRequest);
 
-                if (addCourse == null)
-                {
-                    return BadRequest();
-                }
+        //        if (addCourse == null)
+        //        {
+        //            return BadRequest();
+        //        }
 
-                return Created($"/api/course/{addCourse.Id}", addCourse);
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Sorry, couldn`t create a new course", ex);
-            }
-        }
+        //        return Created($"/api/course/{addCourse.Id}", addCourse);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw new Exception("Sorry, couldn`t create a new course", ex);
+        //    }
+        //}
 
-        [HttpPut]
-        [Route("{id}")]
-        public ActionResult<Course> UpdateCourse(Guid id, [FromBody] CreateCourseRequest courseRequest)
-        {
-            try
-            {
-                var updateCouse = _service.UpdateCourse(id, courseRequest);
+        //[HttpPut]
+        //[Route("{id}")]
+        //public ActionResult<Course> UpdateCourse(Guid id, [FromBody] CreateCourseRequest courseRequest)
+        //{
+        //    try
+        //    {
+        //        var updateCouse = _service.UpdateCourse(id, courseRequest);
 
-                if (updateCouse == null)
-                {
-                    return NotFound("Couldn't find the course");
-                }
+        //        if (updateCouse == null)
+        //        {
+        //            return NotFound("Couldn't find the course");
+        //        }
 
-                return Ok(updateCouse);
-            }
-            catch (Exception)
-            {
+        //        return Ok(updateCouse);
+        //    }
+        //    catch (Exception)
+        //    {
 
-                throw;
-            }
-        }
+        //        throw;
+        //    }
+        //}
 
-        [HttpDelete]
-        [Route("{id}")]
-        public ActionResult<Course> DeleteCourse(Guid id) 
-        {
-            try
-            {
-                var courseDelete = _service.DeleteCourse(id);
+        //[HttpDelete]
+        //[Route("{id}")]
+        //public ActionResult<Course> DeleteCourse(Guid id) 
+        //{
+        //    try
+        //    {
+        //        var courseDelete = _service.DeleteCourse(id);
 
-                if (courseDelete == null)
-                {
-                    return NotFound();
-                }
+        //        if (courseDelete == null)
+        //        {
+        //            return NotFound();
+        //        }
 
-                return NoContent();
-            }
-            catch (Exception ex)
-            {
+        //        return NoContent();
+        //    }
+        //    catch (Exception ex)
+        //    {
 
-                throw new Exception("Could delete the course", ex);
-            }
-        }
+        //        throw new Exception("Could delete the course", ex);
+        //    }
+        //}
     }
 }

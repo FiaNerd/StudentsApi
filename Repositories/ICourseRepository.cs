@@ -5,10 +5,10 @@ namespace StudentsApi.Repositories
 {
     public interface ICourseRepository
     {
-        public IEnumerable<Course> GetAllCourses();
-        public Course? GetCourseById(Guid id);
-        public bool CreateCourse(Course course);
-        public Course UpdateCourse(Guid id, Course course);
-        public Course DeleteCourse(Guid id);
+        public Task<IEnumerable<Course>> GetAllCourses();
+        public Task<Course?> GetCourseById(Guid id);
+        //public Task<Course> CreateCourse(Course course);
+        //public Task<Course?> UpdateCourse(Guid id, Course course);
+        //public Task<Course?> DeleteCourse(Guid id);
     }
 }

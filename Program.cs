@@ -16,11 +16,11 @@ builder.Services.AddDbContext<ApplicationDbContext>(
 builder.Services.AddControllers();
 
 builder.Services.AddScoped<IStudentRepository, StudentRepository>();
-//builder.Services.AddSingleton<ICourseRepository, CourseRepository>();
+builder.Services.AddScoped<ICourseRepository, CourseRepository>();
 //builder.Services.AddSingleton<ICourseInstanceRepository, CourseInstanceRepository>();
 
 builder.Services.AddScoped<IStudentService, StudentService>();
-//builder.Services.AddScoped<ICourseService, CourseService>();
+builder.Services.AddScoped<ICourseService, CourseService>();
 
 var app = builder.Build();
 
