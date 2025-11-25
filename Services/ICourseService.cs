@@ -7,7 +7,7 @@ namespace StudentsApi.Services
         public Task<IEnumerable<Course>> GetAllCourses();
         public Task<Course?> GetCourseById(Guid id);
         public Task<Course> CreateCourse(CreateCourseRequest course);
-        //public Course UpdateCourse(Guid id, CreateCourseRequest course);
-        //public Course DeleteCourse(Guid id);
+        public Task<Course?> UpdateCourse(Guid id, CreateCourseRequest course);
+        public Task<Course?> DeleteCourse(Guid id);
     }
 }

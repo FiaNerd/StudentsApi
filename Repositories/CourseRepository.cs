@@ -74,16 +74,19 @@ namespace StudentsApi.Repositories
             }
         }
 
-        //public Course DeleteCourse(Guid id)
-        //{
-        //    var course = courses.FirstOrDefault(c => c.Id == id);
+        public async Task<Course?> DeleteCourse(Guid id)
+        {
+            var course = await _context.Courses.FindAsync(id);
 
-        //    if (course is not null)
-        //    { 
-        //        courses.Remove(course);
-        //    }
+            if (course is not null)
+            {
+                _context.Courses.Remove(course);
+                await _context.SaveChangesAsync();
 
-        //    return course!;
-        //}
+                return course;
+            }
+
+            throw new ArgumentException("Course not found", nameof(id));
+        }
     }
 }

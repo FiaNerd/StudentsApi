@@ -57,44 +57,45 @@ namespace StudentsApi.Services
 
         }
 
-        //public Course UpdateCourse(Guid id, CreateCourseRequest course)
-        //{
-        //    if (id == Guid.Empty)
-        //    { 
-        //        throw new ArgumentException("Id must not be empty", nameof(id));
-        //    }
+        public async Task<Course?> UpdateCourse(Guid id, CreateCourseRequest course)
+        {
+            if (id == Guid.Empty)
+            {
+                throw new ArgumentException("Id must not be empty", nameof(id));
+            }
 
-        //    var existingCourse = _repo.GetCourseById(id);
+            var existingCourse = _repo.GetCourseById(id);
 
-        //    if (existingCourse is null)
-        //    {
-        //        throw new KeyNotFoundException($"Course with id {id} not found.");
-        //    }
+            if (existingCourse is null)
+            {
+                throw new KeyNotFoundException($"Course with id {id} not found.");
+            }
 
-        //    var updatedCourse = new Course(
-        //        course.Title, 
-        //        course.Description
-        //     );
+            var updatedCourse = new Course(
+                course.Title,
+                course.Description
+             )
+            { 
+             Id = id
+            };
 
-        //    var result = _repo.UpdateCourse(id, updatedCourse);
-        //    if (result is null)
-        //    {
-        //        throw new Exception("Failed to update course.");
-        //    }
+            var result = await _repo.UpdateCourse(id, updatedCourse);
 
-        //    return result;
-        //}
+            if (result is null)
+            {
+                throw new Exception("Failed to update course.");
+            }
 
-        //public Course DeleteCourse(Guid id)
-        //{
-        //    var courseDeleted = _repo.DeleteCourse(id);
+            return result;
+        }
 
-        //    if (courseDeleted is null)
-        //    {
-        //        throw new KeyNotFoundException($"Course with {id} could not be found!");
-        //    }
+        public async Task<Course?> DeleteCourse(Guid id)
+        {
+            var courseDeleted = await _repo.DeleteCourse(id);
 
-        //    return courseDeleted;
-        //}
+            return courseDeleted == null ?
+                  throw new InvalidOperationException($"Student with ID {id} could not be deleted because it does not exist.")
+                : courseDeleted;
+        }
     }
 }

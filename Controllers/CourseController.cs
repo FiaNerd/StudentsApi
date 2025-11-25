@@ -69,48 +69,48 @@ namespace StudentsApi.Controllers
             }
         }
 
-        //[HttpPut]
-        //[Route("{id}")]
-        //public ActionResult<Course> UpdateCourse(Guid id, [FromBody] CreateCourseRequest courseRequest)
-        //{
-        //    try
-        //    {
-        //        var updateCouse = _service.UpdateCourse(id, courseRequest);
+        [HttpPut]
+        [Route("{id}")]
+        public async Task<ActionResult<Course>> UpdateCourse(Guid id, [FromBody] CreateCourseRequest courseRequest)
+        {
+            try
+            {
+                var updateCouse = await _service.UpdateCourse(id, courseRequest);
 
-        //        if (updateCouse == null)
-        //        {
-        //            return NotFound("Couldn't find the course");
-        //        }
+                if (updateCouse == null)
+                {
+                    return NotFound("Couldn't find the course");
+                }
 
-        //        return Ok(updateCouse);
-        //    }
-        //    catch (Exception)
-        //    {
+                return Ok(updateCouse);
+            }
+            catch (Exception)
+            {
 
-        //        throw;
-        //    }
-        //}
+                throw;
+            }
+        }
 
-        //[HttpDelete]
-        //[Route("{id}")]
-        //public ActionResult<Course> DeleteCourse(Guid id) 
-        //{
-        //    try
-        //    {
-        //        var courseDelete = _service.DeleteCourse(id);
+        [HttpDelete]
+        [Route("{id}")]
+        public async Task<ActionResult<Course>> DeleteCourse(Guid id)
+        {
+            try
+            {
+                var courseDelete = await _service.DeleteCourse(id);
 
-        //        if (courseDelete == null)
-        //        {
-        //            return NotFound();
-        //        }
+                if (courseDelete == null)
+                {
+                    return NotFound();
+                }
 
-        //        return NoContent();
-        //    }
-        //    catch (Exception ex)
-        //    {
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
 
-        //        throw new Exception("Could delete the course", ex);
-        //    }
-        //}
+                throw new Exception("Could delete the course", ex);
+            }
+        }
     }
 }

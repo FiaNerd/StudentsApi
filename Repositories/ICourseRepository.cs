@@ -9,6 +9,6 @@ namespace StudentsApi.Repositories
         public Task<Course?> GetCourseById(Guid id);
         public Task<Course> CreateCourse(Course course);
         public Task<Course?> UpdateCourse(Guid id, Course course);
-        //public Task<Course?> DeleteCourse(Guid id);
+        public Task<Course?> DeleteCourse(Guid id);
     }
 }
