@@ -49,25 +49,25 @@ namespace StudentsApi.Controllers
             }
         }
 
-        //[HttpPost]
-        //public ActionResult<Course> CreateCoure([FromBody] CreateCourseRequest courseRequest)
-        //{
-        //    try
-        //    {
-        //        var addCourse = _service.CreateCourse(courseRequest);
+        [HttpPost]
+        public async Task<ActionResult<Course>> CreateCoure([FromBody] CreateCourseRequest courseRequest)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return ValidationProblem(ModelState);
+                }
 
-        //        if (addCourse == null)
-        //        {
-        //            return BadRequest();
-        //        }
+                var addCourse = await _service.CreateCourse(courseRequest);
 
-        //        return Created($"/api/course/{addCourse.Id}", addCourse);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw new Exception("Sorry, couldn`t create a new course", ex);
-        //    }
-        //}
+                return Created($"/api/course/{addCourse.Id}", addCourse);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Sorry, couldn`t create a new course", ex);
+            }
+        }
 
         //[HttpPut]
         //[Route("{id}")]

@@ -51,26 +51,28 @@ namespace StudentsApi.Repositories
             }
         }
 
-        //public Course UpdateCourse(Guid id, Course courseRepo)
-        //{
-        //    try
-        //    {
-        //        var updateCourse = courses.FirstOrDefault(c => c.Id == id);
+        public async Task<Course?> UpdateCourse(Guid id, Course courseToUpdate)
+        {
+            try
+            {
+                var updateCourse = await _context.Courses.FindAsync(id);
 
-        //        if (updateCourse is not null)
-        //        {
-        //            updateCourse.Title = courseRepo.Title;
-        //            updateCourse.Description = courseRepo.Description;
-        //        }
+                if (updateCourse == null)
+                {
+                    return null;
+                }
 
-        //        return updateCourse!;
-        //    }
-        //    catch (Exception)
-        //    {
+                _context.Entry(updateCourse).CurrentValues.SetValues(courseToUpdate);
 
-        //        throw;
-        //    }
-        //}
+                await _context.SaveChangesAsync();
+
+                return updateCourse;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
 
         //public Course DeleteCourse(Guid id)
         //{

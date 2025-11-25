@@ -34,22 +34,28 @@ namespace StudentsApi.Services
             return course;
         }
 
-        //public Course CreateCourse(CreateCourseRequest course)
-        //{
-        //    var newCourse = new Course(
-        //        course.Title,
-        //        course.Description
-        //        );
+        public async Task<Course> CreateCourse(CreateCourseRequest courseRequest)
+        {
+            if (string.IsNullOrWhiteSpace(courseRequest.Title))
+            { 
+                throw new ArgumentException("Course title must not be empty", nameof(courseRequest.Title));
+            }
 
-        //    bool success = _repo.CreateCourse(newCourse);
+            if(string.IsNullOrWhiteSpace(courseRequest.Description))
+            {
+                throw new ArgumentException("Course description must not be empty", nameof(courseRequest.Description));
+            }
 
-        //    if (success)
-        //    {
-        //        return newCourse;
-        //    }
+            var newCourse = new Course(
+                courseRequest.Title,
+                courseRequest.Description
+                );
 
-        //    throw new ArgumentException("Sorry couldnt create the course! Try agian!");
-        //}
+            var isSuccess = await _repo.CreateCourse(newCourse);
+
+            return isSuccess;
+
+        }
 
         //public Course UpdateCourse(Guid id, CreateCourseRequest course)
         //{
