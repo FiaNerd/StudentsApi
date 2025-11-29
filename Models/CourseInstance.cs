@@ -6,7 +6,7 @@ public class CourseInstance(DateTime startDate, DateTime endDate, Course course 
 
     public DateTime StartDate { get; set; } = startDate;
     public DateTime EndDate { get; set; } = endDate;
-
     public Course Course { get; set; } = course;
+
     //public List<Student> Students { get; set; } = students;
 }
