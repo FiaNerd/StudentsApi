@@ -6,10 +6,8 @@ namespace StudentsApi.Models
     {
         public Guid Id { get; init; } = Guid.NewGuid();
 
-        [Required]
         public string Name { get; set; } = name;
 
-        [Required]
         public string Email { get; set; } = email;
     }
 }
