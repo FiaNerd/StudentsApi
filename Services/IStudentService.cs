@@ -1,4 +1,5 @@
 ﻿using StudentsApi.Models;
+using StudentsApi.Models.DTOs;
 
 namespace StudentsApi.Services
 {
@@ -6,8 +7,8 @@ namespace StudentsApi.Services
     {
         public IEnumerable<Student> GetAllStudents();
         public Task<Student?> GetStudentById(Guid id);
-        public Task<Student> CreateStudent(CreateStudentRequest student);
-        public Task<Student?> UpdateStudent(Guid id, CreateStudentRequest updateStudent);
+        public Task<Student> CreateStudent(CreateStudentDTO student);
+        public Task<Student?> UpdateStudent(Guid id, CreateStudentDTO updateStudent);
         public Task<Student?> DeleteStudent(Guid id);
     }
 }

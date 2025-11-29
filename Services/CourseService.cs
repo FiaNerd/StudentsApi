@@ -1,4 +1,4 @@
-﻿using StudentsApi.Models;
+﻿using StudentsApi.Models.DTOs;
 using StudentsApi.Repositories;
 
 namespace StudentsApi.Services
@@ -34,7 +34,7 @@ namespace StudentsApi.Services
             return course;
         }
 
-        public async Task<Course> CreateCourse(CreateCourseRequest courseRequest)
+        public async Task<Course> CreateCourse(CreateCourseDTO courseRequest)
         {
             if (string.IsNullOrWhiteSpace(courseRequest.Title))
             { 
@@ -57,7 +57,7 @@ namespace StudentsApi.Services
 
         }
 
-        public async Task<Course?> UpdateCourse(Guid id, CreateCourseRequest course)
+        public async Task<Course?> UpdateCourse(Guid id, CreateCourseDTO course)
         {
             if (id == Guid.Empty)
             {

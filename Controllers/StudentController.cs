@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using StudentsApi.Models;
+using StudentsApi.Models.DTOs;
 using StudentsApi.Services;
 
 namespace StudentsApi.Controllers
@@ -42,7 +43,7 @@ namespace StudentsApi.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Student>> CreateStudent([FromBody] CreateStudentRequest studentRequest)
+        public async Task<ActionResult<Student>> CreateStudent([FromBody] CreateStudentDTO studentRequest)
         {
             try
             {
@@ -63,7 +64,7 @@ namespace StudentsApi.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult<Student?>> UpdateStudent(Guid id, [FromBody] CreateStudentRequest studentRequest)
+        public async Task<ActionResult<Student?>> UpdateStudent(Guid id, [FromBody] CreateStudentDTO studentRequest)
         {
             try
             {

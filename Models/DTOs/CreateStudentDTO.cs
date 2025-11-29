@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace StudentsApi.Models
+namespace StudentsApi.Models.DTOs
 {
-    public struct CreateStudentRequest
+    public struct CreateStudentDTO
     {
         [Required(ErrorMessage = "Du måste ha ett namn")]
         [StringLength(80, MinimumLength = 2, ErrorMessage = "Du måste använda minst två tecken i namnet" )]

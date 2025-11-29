@@ -1,4 +1,4 @@
-﻿using StudentsApi.Models;
+﻿using StudentsApi.Models.DTOs;
 
 namespace StudentsApi.Services
 {
@@ -6,8 +6,8 @@ namespace StudentsApi.Services
     {
         public Task<IEnumerable<Course>> GetAllCourses();
         public Task<Course?> GetCourseById(Guid id);
-        public Task<Course> CreateCourse(CreateCourseRequest course);
-        public Task<Course?> UpdateCourse(Guid id, CreateCourseRequest course);
+        public Task<Course> CreateCourse(CreateCourseDTO course);
+        public Task<Course?> UpdateCourse(Guid id, CreateCourseDTO course);
         public Task<Course?> DeleteCourse(Guid id);
     }
 }

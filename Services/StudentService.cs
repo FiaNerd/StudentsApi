@@ -1,4 +1,5 @@
 ﻿using StudentsApi.Models;
+using StudentsApi.Models.DTOs;
 using StudentsApi.Repositories;
 
 namespace StudentsApi.Services
@@ -36,7 +37,7 @@ namespace StudentsApi.Services
             }
         }
 
-        public async Task<Student> CreateStudent(CreateStudentRequest studentRequest)
+        public async Task<Student> CreateStudent(CreateStudentDTO studentRequest)
         {
             try
             {
@@ -60,7 +61,7 @@ namespace StudentsApi.Services
             }
         }
 
-        public async Task<Student?> UpdateStudent(Guid id, CreateStudentRequest studentRequest)
+        public async Task<Student?> UpdateStudent(Guid id, CreateStudentDTO studentRequest)
         {
             try
             {
