@@ -14,7 +14,10 @@ namespace StudentsApi.Repositories
 
         public async Task<IEnumerable<Course>> GetAllCourses()
         {
-            return await _context.Courses.OrderBy(course => course.Title).ToListAsync();
+            return await _context.Courses
+                .Include(c => c.CourseInstances)
+                .OrderBy(course => course.Title)
+                .ToListAsync();
         }
 
         public async Task<Course?> GetCourseById(Guid id)

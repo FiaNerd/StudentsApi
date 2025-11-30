@@ -1,6 +1,6 @@
-﻿using StudentsApi.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using StudentsApi.Models;
 using StudentsApi.Persistence;
-using System.Security.Cryptography.X509Certificates;
 
 namespace StudentsApi.Repositories
 {
@@ -8,13 +8,14 @@ namespace StudentsApi.Repositories
     {
         private readonly ApplicationDbContext _context;
 
-        public CourseInstanceRepository(ApplicationDbContext context)
-        {
-            _context = context;
-        }
+            public CourseInstanceRepository(ApplicationDbContext context)
+            {
+                _context = context;
+            }
 
-        public async Task<IEnumerable<CourseInstance>> GetAllCourseInstance()
-        {
-            return await _context.CourseInstances.ToListAsync();
+            public async Task<IEnumerable<CourseInstance>> GetAllCourseInstances()
+            {
+                return await _context.CourseInstances.ToListAsync();
+            }
         }
     }
