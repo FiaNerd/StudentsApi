@@ -1,4 +1,5 @@
-﻿using StudentsApi.Models.DTOs;
+﻿using AutoMapper;
+using StudentsApi.Models.DTOs;
 using StudentsApi.Repositories;
 
 namespace StudentsApi.Services
@@ -6,15 +7,19 @@ namespace StudentsApi.Services
     public class CourseService : ICourseService
     {
        private readonly ICourseRepository _repo;
+        private readonly IMapper _mapper;
 
-        public CourseService(ICourseRepository repo)
+        public CourseService(ICourseRepository repo, IMapper mapper)
         {
             _repo = repo;
+            _mapper = mapper;
         }
 
-        public async Task<IEnumerable<Course>> GetAllCourses()
+        public async Task<IEnumerable<CourseDTO>> GetAllCourses()
         {
-            return await _repo.GetAllCourses();
+            IEnumerable<Course> courses = await _repo.GetAllCourses();
+
+            return _mapper.Map<IEnumerable<CourseDTO>>(courses);
         }
 
         public async Task<Course?> GetCourseById(Guid id)
