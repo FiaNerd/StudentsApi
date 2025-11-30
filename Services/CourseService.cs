@@ -22,21 +22,21 @@ namespace StudentsApi.Services
             return _mapper.Map<IEnumerable<CourseDTO>>(courses);
         }
 
-        public async Task<Course?> GetCourseById(Guid id)
+        public async Task<CourseDTO?> GetCourseById(Guid id)
         {
             if (id == Guid.Empty)
             {
                 throw new ArgumentException("Id must not be empty", nameof(id));
             }
 
-            var course = await _repo.GetCourseById(id);
+            Course? course = await _repo.GetCourseById(id);
 
             if (course is null)
             {
                 throw new KeyNotFoundException($"Could not find a course with id {id}");
             }
 
-            return course;
+            return _mapper.Map<CourseDTO>(course);
         }
 
         public async Task<Course> CreateCourse(CreateCourseDTO courseRequest)
