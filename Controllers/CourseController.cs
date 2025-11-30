@@ -73,18 +73,18 @@ namespace StudentsApi.Controllers
 
         [HttpPut]
         [Route("{id}")]
-        public async Task<ActionResult<Course>> UpdateCourse(Guid id, [FromBody] CreateCourseDTO courseRequest)
+        public async Task<ActionResult<CourseDTO>> UpdateCourse(Guid id, [FromBody] UpdateCourseDTO updateRequest)
         {
             try
             {
-                var updateCouse = await _service.UpdateCourse(id, courseRequest);
+                var updateCouse = await _service.UpdateCourse(id, updateRequest);
 
                 if (updateCouse == null)
                 {
                     return NotFound("Couldn't find the course");
                 }
 
-                return Ok(updateCouse);
+                return NoContent();
             }
             catch (Exception)
             {
