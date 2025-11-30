@@ -25,7 +25,7 @@ namespace StudentsApi.Controllers
 
         [HttpGet]
         [Route("{id}")]
-        public async Task<ActionResult<Course?>> GetCourseById(Guid id)
+        public async Task<ActionResult<CourseDTO?>> GetCourseById(Guid id)
         {
             try
             {
