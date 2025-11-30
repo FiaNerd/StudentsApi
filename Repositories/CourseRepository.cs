@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using StudentsApi.Models;
 using StudentsApi.Persistence;
 
 namespace StudentsApi.Repositories
@@ -15,13 +14,11 @@ namespace StudentsApi.Repositories
 
         public async Task<IEnumerable<Course>> GetAllCourses()
         {
-            _context.Database.EnsureCreated();
             return await _context.Courses.OrderBy(course => course.Title).ToListAsync();
         }
 
         public async Task<Course?> GetCourseById(Guid id)
         {
-            _context.Database.EnsureCreated();
             var course = await _context.Courses.FindAsync(id);
             return course;
         }
