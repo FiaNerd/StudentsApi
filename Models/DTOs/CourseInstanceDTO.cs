@@ -2,7 +2,7 @@
 
 namespace StudentsApi.Models.DTOs
 {
-    public class CourseInstance
+    public class CourseInstanceDTO
     {
         [Required]
         public DateTime StartDate { get; set; }
