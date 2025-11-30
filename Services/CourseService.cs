@@ -62,36 +62,39 @@ namespace StudentsApi.Services
 
         }
 
-        public async Task<Course?> UpdateCourse(Guid id, CreateCourseDTO course)
+        public async Task<CourseDTO?> UpdateCourse(Guid id, UpdateCourseDTO course)
         {
             if (id == Guid.Empty)
-            {
                 throw new ArgumentException("Id must not be empty", nameof(id));
-            }
 
-            var existingCourse = _repo.GetCourseById(id);
+            var existingCourse = await _repo.GetCourseById(id)
+                ?? throw new Exception($"Course with id {id} not found.");
 
-            if (existingCourse is null)
+            // Apply updates only if provided
+            if (!string.IsNullOrWhiteSpace(course.Title))
+                existingCourse.Title = course.Title;
+
+            if (!string.IsNullOrWhiteSpace(course.Description))
+                existingCourse.Description = course.Description;
+
+            // Validate final state (entity, not DTO)
+            if (string.IsNullOrWhiteSpace(existingCourse.Title) ||
+                string.IsNullOrWhiteSpace(existingCourse.Description))
             {
-                throw new KeyNotFoundException($"Course with id {id} not found.");
+                throw new ArgumentException("Course must always have both title and description.");
             }
 
-            var updatedCourse = new Course(
-                course.Title,
-                course.Description
-             )
-            { 
-             Id = id
-            };
+            //Course updateCoure = new Course(
+            //    existingCourse.Title,
+            //    existingCourse.Description
+            //    )
+            //{
+            //    Id = existingCourse.Id
+            //};
 
-            var result = await _repo.UpdateCourse(id, updatedCourse);
+            await _repo.UpdateCourse(id,existingCourse);
 
-            if (result is null)
-            {
-                throw new Exception("Failed to update course.");
-            }
-
-            return result;
+            return _mapper.Map<CourseDTO>(existingCourse);
         }
 
         public async Task<Course?> DeleteCourse(Guid id)
