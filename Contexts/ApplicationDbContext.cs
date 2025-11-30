@@ -8,6 +8,7 @@ namespace StudentsApi.Persistence
         public DbSet<Student> Students { get; set; }
 
         public DbSet<Course> Courses { get; set; }
+        public DbSet<CourseInstance> CourseInstances { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
