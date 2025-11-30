@@ -50,7 +50,7 @@ namespace StudentsApi.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Course>> CreateCoure([FromBody] CreateCourseDTO courseRequest)
+        public async Task<ActionResult<CourseDTO>> CreateCoure([FromBody] CreateCourseDTO courseRequest)
         {
             try
             {
@@ -59,9 +59,11 @@ namespace StudentsApi.Controllers
                     return ValidationProblem(ModelState);
                 }
 
-                var addCourse = await _service.CreateCourse(courseRequest);
+                CourseDTO newCourse = await _service.CreateCourse(courseRequest);
 
-                return Created($"/api/course/{addCourse.Id}", addCourse);
+                //return Created($"/api/course/{addCourse.Id}", addCourse);
+
+                return CreatedAtAction(nameof(GetCourseById), new { id = newCourse.Id }, newCourse);
             }
             catch (Exception ex)
             {
