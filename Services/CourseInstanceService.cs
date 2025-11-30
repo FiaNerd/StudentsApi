@@ -25,7 +25,6 @@ namespace StudentsApi.Services
             }
             catch (Exception)
             {
-
                 throw;
             }
         }
