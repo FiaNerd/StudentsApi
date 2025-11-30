@@ -5,7 +5,7 @@ using StudentsApi.Repositories;
 
 namespace StudentsApi.Services
 {
-    public class CourseInstanceService : ICourseInsanceService
+    public class CourseInstanceService : ICourseInstanceService
     {
         private readonly ICourseInstanceRepository _repository;
         private readonly IMapper _mapper;

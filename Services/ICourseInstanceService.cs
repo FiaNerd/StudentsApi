@@ -2,7 +2,7 @@
 
 namespace StudentsApi.Services
 {
-    public interface ICourseInsanceService
+    public interface ICourseInstanceService
     {
         public Task<IEnumerable<CourseInstanceDTO>> GetAllCourseInstances();
     }

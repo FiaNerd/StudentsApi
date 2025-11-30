@@ -21,6 +21,7 @@ builder.Services.AddScoped<ICourseInstanceRepository, CourseInstanceRepository>(
 
 builder.Services.AddScoped<IStudentService, StudentService>();
 builder.Services.AddScoped<ICourseService, CourseService>();
+builder.Services.AddScoped<ICourseInstanceService, CourseInstanceService>();
 
 builder.Services.AddAutoMapper(options => {
     options.AddMaps(typeof(Program));
