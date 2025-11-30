@@ -1,6 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using StudentsApi.Models.DTOs;
+using StudentsApi.Persistence;
 using StudentsApi.Services;
 
 namespace StudentsApi.Controllers
@@ -30,5 +33,16 @@ namespace StudentsApi.Controllers
                 throw;
             }
         }
+
+        //[HttpGet("debug")]
+        //public async Task<ActionResult> DebugEndpoint([FromServices] ApplicationDbContext context)
+        //{
+        //   var data = await context.CourseInstances
+        //        .Include(ci => ci.Course)
+        //        .Include(ci => ci.Students)
+        //        .ToListAsync();
+
+        //    return Ok(data);
+        //}
     }
 }

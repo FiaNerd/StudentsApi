@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using StudentsApi.Persistence;
 using StudentsApi.Repositories;
 using StudentsApi.Services;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,7 +14,11 @@ builder.Services.AddDbContext<ApplicationDbContext>(
     options => options.UseInMemoryDatabase("MyDb")
     );
 
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+    }); ;
 
 builder.Services.AddScoped<IStudentRepository, StudentRepository>();
 builder.Services.AddScoped<ICourseRepository, CourseRepository>();
@@ -34,6 +39,8 @@ using (var scope = app.Services.CreateScope())
     var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
     context.Database.EnsureCreated();
 }
+
+
 
 app.MapControllers();
 
