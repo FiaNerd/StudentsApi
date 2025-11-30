@@ -11,4 +11,6 @@ public class CourseInstance(DateTime startDate, DateTime endDate)
     public Guid CourseId { get; set; }
     // Navigation property
     public Course? Course { get; set; }
+
+    public ICollection<Student> Students { get; set; } = new List<Student>();
 }

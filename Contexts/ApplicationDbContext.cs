@@ -11,6 +11,13 @@ namespace StudentsApi.Persistence
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Student>()
+                .HasData(
+                    new Student("One Student", "one@nomail.com") { Id = Guid.Parse("11111111-1111-1111-1111-111111111111") },
+                    new Student("Second Student", "two@nomail.com") { Id = Guid.Parse("22222222-2222-2222-2222-222222222222") },
+                    new Student("Third Student", "three@nomail.com") { Id = Guid.Parse("33333333-3333-3333-3333-333333333333") }
+                );
+
             modelBuilder.Entity<Course>().HasData(
                 new Course("Mathematics", "An introduction to mathematical concepts.") { Id = Guid.Parse("a1b2c3d4-e5f6-4789-abcd-1234567890ab") },
                 new Course("History", "A study of historical events and figures.") { Id = Guid.Parse("b2c3d4e5-f678-489a-bcde-2345678901bc") },
@@ -51,6 +58,14 @@ namespace StudentsApi.Persistence
                 .HasMany(c => c.CourseInstances)
                 .WithOne(ci => ci.Course!)
                 .HasForeignKey(ci => ci.CourseId);
+
+            modelBuilder.Entity<CourseInstance>()
+                .HasMany(ci => ci.Students)
+                .WithMany(ci => ci.CourseInstances)
+                .UsingEntity(j => j.HasData([
+                        new { StudentsId = Guid.Parse("11111111-1111-1111-1111-111111111111"), CourseInstancesId = Guid.Parse("e5f6789a-4b5c-4cdf-ef01-5678901234ef") },
+                        new { StudentsId = Guid.Parse("22222222-2222-2222-2222-222222222222"), CourseInstancesId = Guid.Parse("d4e5f678-9a4b-4bcf-def0-4567890123de") }
+                    ]));     
         }
     }
 }
