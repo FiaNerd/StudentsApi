@@ -39,7 +39,7 @@ namespace StudentsApi.Services
             return _mapper.Map<CourseDTO>(course);
         }
 
-        public async Task<Course> CreateCourse(CreateCourseDTO courseRequest)
+        public async Task<CourseDTO> CreateCourse(CreateCourseDTO courseRequest)
         {
             if (string.IsNullOrWhiteSpace(courseRequest.Title))
             { 
@@ -56,9 +56,9 @@ namespace StudentsApi.Services
                 courseRequest.Description
                 );
 
-            var isSuccess = await _repo.CreateCourse(newCourse);
+            var createdCourse = await _repo.CreateCourse(newCourse);
 
-            return isSuccess;
+            return _mapper.Map<CourseDTO>(createdCourse);
 
         }
 
