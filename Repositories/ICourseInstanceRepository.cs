@@ -1,10 +1,11 @@
 ﻿using StudentsApi.Models;
+using StudentsApi.Models.DTOs;
 
 namespace StudentsApi.Repositories
 {
     public interface ICourseInstanceRepository
     {
-        //IEnumerable<CourseInstance> GetAllCourseInstance();
+        Task<IEnumerable<CourseInstanceDTO>> GetAllCourseInstance();
         //IEnumerable<CourseInstance> GetCoursesByStudent(Guid studentId);
     }
 }
