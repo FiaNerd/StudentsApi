@@ -22,7 +22,10 @@ namespace StudentsApi.Repositories
 
         public async Task<Course?> GetCourseById(Guid id)
         {
-            var course = await _context.Courses.FindAsync(id);
+            var course = await _context.Courses
+                .Include(c => c.CourseInstances)
+                .FirstOrDefaultAsync(c => c.Id == id);
+
             return course;
         }
 
