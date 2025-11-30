@@ -8,6 +8,6 @@ namespace StudentsApi.Services
         public Task<CourseDTO?> GetCourseById(Guid id);
         public Task<CourseDTO> CreateCourse(CreateCourseDTO course);
         public Task<CourseDTO?> UpdateCourse(Guid id, UpdateCourseDTO course);
-        public Task<Course?> DeleteCourse(Guid id);
+        public Task DeleteCourse(Guid id);
     }
 }

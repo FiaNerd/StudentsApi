@@ -97,13 +97,14 @@ namespace StudentsApi.Services
             return _mapper.Map<CourseDTO>(existingCourse);
         }
 
-        public async Task<Course?> DeleteCourse(Guid id)
+        public async Task DeleteCourse(Guid id)
         {
-            var courseDeleted = await _repo.DeleteCourse(id);
+            Course? courseDeleted = await _repo.DeleteCourse(id);
 
-            return courseDeleted == null ?
-                  throw new InvalidOperationException($"Student with ID {id} could not be deleted because it does not exist.")
-                : courseDeleted;
+            if (courseDeleted == null)
+            {
+                throw new KeyNotFoundException($"Could not find a course with id {id} to delete.");
+            }
         }
     }
 }

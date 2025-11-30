@@ -95,23 +95,17 @@ namespace StudentsApi.Controllers
 
         [HttpDelete]
         [Route("{id}")]
-        public async Task<ActionResult<Course>> DeleteCourse(Guid id)
+        public async Task<IActionResult> DeleteCourse(Guid id)
         {
             try
             {
-                var courseDelete = await _service.DeleteCourse(id);
-
-                if (courseDelete == null)
-                {
-                    return NotFound();
-                }
+                 await _service.DeleteCourse(id);
 
                 return NoContent();
             }
             catch (Exception ex)
             {
-
-                throw new Exception("Could delete the course", ex);
+                throw new Exception("Could not delete the course", ex);
             }
         }
     }
