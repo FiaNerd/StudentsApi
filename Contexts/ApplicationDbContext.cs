@@ -19,7 +19,7 @@ namespace StudentsApi.Persistence
                 );
 
             modelBuilder.Entity<Course>().HasData(
-                new Course("Mathematics", "An introduction to mathematical concepts.") { Id = Guid.Parse("a1b2c3d4-e5f6-4789-abcd-1234567890ab") },
+                new Course("Mathematics", "An introduction to mathematical concepts.") { Id =  Guid.Parse("a1b2c3d4-e5f6-4789-abcd-1234567890ab") },
                 new Course("History", "A study of historical events and figures.") { Id = Guid.Parse("b2c3d4e5-f678-489a-bcde-2345678901bc") },
                 new Course("Biology", "Exploring the science of life and living organisms.") { Id = Guid.Parse("c3d4e5f6-789a-49ab-cdef-3456789012cd") },
                 new Course("IT", "Exploring the internet.") { Id = Guid.Parse("96deb571-e143-4fe7-a54f-eacda657a5a7") }
@@ -56,7 +56,7 @@ namespace StudentsApi.Persistence
 
             modelBuilder.Entity<Course>()
                 .HasMany(c => c.CourseInstances)
-                .WithOne(ci => ci.Course!)
+                .WithOne(ci => ci.Course)
                 .HasForeignKey(ci => ci.CourseId);
 
             modelBuilder.Entity<CourseInstance>()

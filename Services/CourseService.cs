@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using StudentsApi.Models;
 using StudentsApi.Models.DTOs;
 using StudentsApi.Repositories;
 
@@ -54,7 +55,14 @@ namespace StudentsApi.Services
             var newCourse = new Course(
                 courseRequest.Title,
                 courseRequest.Description
-                );
+
+                )
+            {
+                CourseInstances = courseRequest.CourseInstances
+                .Select(i => new CourseInstance(i.StartDate, i.EndDate))
+                .ToList()
+
+            };
 
             var createdCourse = await _repo.CreateCourse(newCourse);
 

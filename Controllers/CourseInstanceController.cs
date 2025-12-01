@@ -1,9 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Mvc;
 using StudentsApi.Models.DTOs;
-using StudentsApi.Persistence;
 using StudentsApi.Services;
 
 namespace StudentsApi.Controllers

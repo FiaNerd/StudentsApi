@@ -10,5 +10,7 @@ namespace StudentsApi.Models.DTOs
 
         [Required]
         public string Description { get; set; } = string.Empty;
+
+        public ICollection<CourseInstanceDTO> CourseInstances { get; set; } = new List<CourseInstanceDTO>();
     }
 }
