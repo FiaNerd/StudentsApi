@@ -15,10 +15,31 @@ namespace StudentsApi.Repositories
 
         public async Task<IEnumerable<CourseInstance>> GetAllCourseInstances()
         {
-            return await _context.CourseInstances.ToListAsync();
+            return await _context.CourseInstances
+                .Include(ci => ci.Students)
+                .Include(ci => ci.Course)
+                .ToListAsync();
         }
 
-    public async Task<CourseInstance> CreateCourseInstance(CourseInstance courseInstance)
+        public async Task<CourseInstance?> GetCourseInstanceById(Guid id)
+        {
+            try
+            {
+                var courseInstance = await _context.CourseInstances
+                    .Include(ci => ci.Students)
+                    .ThenInclude(s => s.CourseInstances)
+                    .FirstOrDefaultAsync(ci => ci.Id == id);
+
+                return courseInstance;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        public async Task<CourseInstance> CreateCourseInstance(CourseInstance courseInstance)
         {
             try
             {

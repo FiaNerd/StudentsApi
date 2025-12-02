@@ -9,6 +9,7 @@ namespace StudentsApi.Models
         {
             CreateMap<Course, CourseDTO>();
             CreateMap<CourseInstance, CourseInstanceDTO>();
+            CreateMap<Student, StudentDTO>();
         }
     }
 }

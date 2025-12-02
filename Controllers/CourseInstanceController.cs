@@ -20,12 +20,27 @@ namespace StudentsApi.Controllers
             try
             {
                 var courseInstances = await _service.GetAllCourseInstances();
-            
+
                 return Ok(courseInstances);
             }
             catch (Exception)
             {
 
+                throw;
+            }
+        }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<CourseInstanceDTO?>> GetCourseInstanceById(Guid id)
+        {
+            try
+            {
+                var courseInstance = await _service.GetCourseInstanceById(id);
+
+                return Ok(courseInstance);
+            }
+            catch (Exception)
+            {
                 throw;
             }
         }

@@ -30,7 +30,7 @@ namespace StudentsApi.Persistence
                     new CourseInstance(DateTime.Parse("2024-09-01"), DateTime.Parse("2025-06-30"))
                     {
                         Id = Guid.Parse("d4e5f678-9a4b-4bcf-def0-4567890123de"),
-                        CourseId = Guid.Parse("a1b2c3d4-e5f6-4789-abcd-1234567890ab") 
+                        CourseId = Guid.Parse("a1b2c3d4-e5f6-4789-abcd-1234567890ab")// Mathematics
                     },
                     new CourseInstance(DateTime.Parse("2024-09-01"), DateTime.Parse("2025-06-30"))
                     {
@@ -61,11 +61,14 @@ namespace StudentsApi.Persistence
 
             modelBuilder.Entity<CourseInstance>()
                 .HasMany(ci => ci.Students)
-                .WithMany(ci => ci.CourseInstances)
-                .UsingEntity(j => j.HasData([
-                        new { StudentsId = Guid.Parse("11111111-1111-1111-1111-111111111111"), CourseInstancesId = Guid.Parse("e5f6789a-4b5c-4cdf-ef01-5678901234ef") },
-                        new { StudentsId = Guid.Parse("22222222-2222-2222-2222-222222222222"), CourseInstancesId = Guid.Parse("d4e5f678-9a4b-4bcf-def0-4567890123de") }
-                    ]));     
+                .WithMany(s => s.CourseInstances)
+                .UsingEntity<Dictionary<string, object>>(
+                    "CourseInstanceStudent", // join table name
+                    j => j.HasData(
+                        new { CourseInstancesId = Guid.Parse("e5f6789a-4b5c-4cdf-ef01-5678901234ef"), StudentsId = Guid.Parse("11111111-1111-1111-1111-111111111111") },
+                        new { CourseInstancesId = Guid.Parse("d4e5f678-9a4b-4bcf-def0-4567890123de"), StudentsId = Guid.Parse("22222222-2222-2222-2222-222222222222") }
+                    )
+                );
         }
     }
 }

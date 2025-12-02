@@ -15,6 +15,7 @@ namespace StudentsApi.Services
             _repository = repository;
             _mapper = mapper;
         }
+
         public async Task<IEnumerable<CourseInstanceDTO>> GetAllCourseInstances()
         {
             try
@@ -26,6 +27,51 @@ namespace StudentsApi.Services
             catch (Exception)
             {
                 throw;
+            }
+        }
+
+        public async Task<CourseInstanceDTO?> GetCourseInstanceById(Guid id)
+        {
+            try
+            {   
+                var result = await _repository.GetCourseInstanceById(id);
+
+                if(result == null)
+                {
+                    throw new Exception("Course Instance not found");
+                }
+
+                return _mapper.Map<CourseInstanceDTO>(result);
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception("Something wrong!", ex);
+            }
+        }
+
+        public Task<CourseInstanceDTO?> CreateCourseInstance(CourseInstanceDTO courseInstanceDTO)
+        {
+            try
+            {
+
+                throw new NotImplementedException();
+                //var addCourseInstance = new CourseInstance(
+                //        courseInstanceDTO.StartDate,
+                //        courseInstanceDTO.EndDate
+                //    );
+                //{ 
+                //    courseInstanceDTO.Students = addCourseInstance.Students;
+                //}; 
+
+                //var createdCourseInstance = _repository.CreateCourseInstance(addCourseInstance);
+
+                //return _mapper.Map<Task<CourseInstanceDTO>>(createdCourseInstance);
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception("Not working", ex);
             }
         }
     }

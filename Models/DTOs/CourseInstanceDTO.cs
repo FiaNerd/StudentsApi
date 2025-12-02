@@ -10,6 +10,7 @@ namespace StudentsApi.Models.DTOs
         [Required]
         public DateTime EndDate { get; set; }
 
-        public ICollection<Student> Students { get; set; } = new List<Student>();
+        public CourseDTO Courses { get; set; } = null!;
+        public ICollection<StudentDTO> Students { get; set; } = new List<StudentDTO>();
     }
 }
