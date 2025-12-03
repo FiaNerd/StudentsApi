@@ -2,7 +2,7 @@
 
 namespace StudentsApi.Models.DTOs
 {
-    public class CreateCourseInstanceDTO
+    public class CourseWithInstancesDTO
     {
         public Guid Id { get; set; }
         [Required(ErrorMessage = "The course must have a name")]
