@@ -13,7 +13,7 @@ namespace StudentsApi.Repositories
             _context = context;
         }
 
-        public async Task<IEnumerable<CourseInstance>> GetAllCourseInstances()
+        public async Task<IEnumerable<CourseInstance>> GetCourseInstances()
         {
             return await _context.CourseInstances
                 .Include(ci => ci.Students)

@@ -16,11 +16,11 @@ namespace StudentsApi.Services
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<CourseInstanceDTO>> GetAllCourseInstances()
+        public async Task<IEnumerable<CourseInstanceDTO>> GetCourseInstances()
         {
             try
             {
-                IEnumerable<CourseInstance> courseInstances = await _repository.GetAllCourseInstances();
+                IEnumerable<CourseInstance> courseInstances = await _repository.GetCourseInstances();
 
                 return _mapper.Map<IEnumerable<CourseInstanceDTO>>(courseInstances);
             }

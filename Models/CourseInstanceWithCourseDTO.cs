@@ -1,8 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using StudentsApi.Models.DTOs;
+using System.ComponentModel.DataAnnotations;
 
-namespace StudentsApi.Models.DTOs
+namespace StudentsApi.Models
 {
-    public class CourseInstanceDTO
+    public class CourseInstanceWithCourseDTO
     {
         [Required]
         public DateTime StartDate { get; set; }
@@ -10,7 +11,7 @@ namespace StudentsApi.Models.DTOs
         [Required]
         public DateTime EndDate { get; set; }
 
-        public CourseDTO Course { get; set; } = null!;
+        //public CourseDTO Course { get; set; } = null!;
         public ICollection<StudentDTO> Students { get; set; } = new List<StudentDTO>();
     }
 }
