@@ -1,4 +1,5 @@
-﻿using StudentsApi.Models;
+﻿using AutoMapper;
+using StudentsApi.Models;
 using StudentsApi.Models.DTOs;
 using StudentsApi.Repositories;
 
@@ -7,16 +8,20 @@ namespace StudentsApi.Services
     public class StudentService : IStudentService
     {
         private readonly IStudentRepository _repo;
+        private readonly IMapper _mapper;
 
-        public StudentService(IStudentRepository repo)
+        public StudentService(IStudentRepository repo, IMapper mapper)
         {
              _repo = repo;
+            _mapper = mapper;
         }
-        public IEnumerable<Student> GetAllStudents()
+        public async Task<IEnumerable<StudentInfoDTO>> GetAllStudents()
         {
             try
             {
-                return _repo.GetAllStudents();
+                var students = await _repo.GetAllStudents();
+
+                return _mapper.Map<IEnumerable<StudentInfoDTO>>(students);
             }
             catch (Exception ex)
             {

@@ -17,9 +17,12 @@ namespace StudentsApi.Controllers
         }
 
         [HttpGet]
-        public ActionResult<Student> GetAllStudents()
+        public async Task<ActionResult<StudentDTO>> GetAllStudents()
         {
-            return Ok(_studentService.GetAllStudents());
+
+            var getStudents = await _studentService.GetAllStudents();
+
+            return Ok(getStudents);
         }
 
         [HttpGet("{id}")]

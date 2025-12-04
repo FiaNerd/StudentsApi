@@ -10,7 +10,12 @@ namespace StudentsApi.Models
             CreateMap<Course, CourseDTO>();
             CreateMap<Course, CourseWithInstancesDTO>();
             CreateMap<CourseInstance, CourseInstanceDTO>();
+            CreateMap<CourseInstance, CourseInstanceInfoDTO>();
             CreateMap<Student, StudentDTO>();
+            CreateMap<Student, StudentInfoDTO>();
+            CreateMap<CourseInstance, CourseWithInstancesDTO>();
+
+
         }
     }
 }

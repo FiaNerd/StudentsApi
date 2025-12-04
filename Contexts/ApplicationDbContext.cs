@@ -46,11 +46,6 @@ namespace StudentsApi.Persistence
                     {
                         Id = Guid.Parse("a54f96de-b571-4fe7-a54f-eacda657a5a7"),
                         CourseId = Guid.Parse("96deb571-e143-4fe7-a54f-eacda657a5a7") // IT
-                    },
-                    new CourseInstance(DateTime.Parse("2025-01-15"), DateTime.Parse("2025-05-15"))
-                    {
-                        Id = Guid.Parse("b12a34b5-c67d-48ef-a901-7890123456b1"),
-                        CourseId = Guid.Parse("96deb571-e143-4fe7-a54f-eacda657a5a7") // IT
                     }
                 );
 
@@ -67,7 +62,8 @@ namespace StudentsApi.Persistence
                     j => j.HasData(
                         new { CourseInstancesId = Guid.Parse("e5f6789a-4b5c-4cdf-ef01-5678901234ef"), StudentsId = Guid.Parse("11111111-1111-1111-1111-111111111111") },
                         new { CourseInstancesId = Guid.Parse("d4e5f678-9a4b-4bcf-def0-4567890123de"), StudentsId = Guid.Parse("22222222-2222-2222-2222-222222222222") },
-                        new { CourseInstancesId = Guid.Parse("f6789a4b-5c6d-4def-f012-6789012345f0"), StudentsId = Guid.Parse("33333333-3333-3333-3333-333333333333") }
+                        new { CourseInstancesId = Guid.Parse("f6789a4b-5c6d-4def-f012-6789012345f0"), StudentsId = Guid.Parse("33333333-3333-3333-3333-333333333333") },
+                          new { CourseInstancesId = Guid.Parse("f6789a4b-5c6d-4def-f012-6789012345f0"), StudentsId = Guid.Parse("11111111-1111-1111-1111-111111111111") }
                     )
                 );
         }

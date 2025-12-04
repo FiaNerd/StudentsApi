@@ -1,4 +1,5 @@
-﻿using StudentsApi.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using StudentsApi.Models;
 using StudentsApi.Persistence;
 using System.Data;
 
@@ -12,17 +13,15 @@ namespace StudentsApi.Repositories
         {
             _context = context;
         }
-        public IEnumerable<Student> GetAllStudents()
+        public async Task<IEnumerable<Student>> GetAllStudents()
         {
-            _context.Database.EnsureCreated();
-
-            return _context.Students.OrderBy(student => student.Name).ToList();
+            return await _context.Students
+                .Include(s => s.CourseInstances)
+                .OrderBy(student => student.Name).ToListAsync();
         }
 
         public async Task<Student?> GetStudentById(Guid id)
         {
-            _context.Database.EnsureCreated();
-
             return await _context.Students.FindAsync(id);
         }
 

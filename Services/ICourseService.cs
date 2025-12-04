@@ -5,7 +5,7 @@ namespace StudentsApi.Services
 {
     public interface ICourseService
     {
-        public Task<IEnumerable<CourseWithInstancesDTO>> GetAllCourses();
+        public Task<IEnumerable<CourseDTO>> GetAllCourses();
         public Task<CourseDTO?> GetCourseById(Guid id);
         public Task<CourseDTO> CreateCourse(CreateCourseDTO course);
         public Task<CourseDTO?> UpdateCourse(Guid id, UpdateCourseDTO course);
