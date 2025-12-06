@@ -13,16 +13,22 @@ namespace StudentsApi.Repositories
         {
             _context = context;
         }
+
+           
         public async Task<IEnumerable<Student>> GetAllStudents()
         {
             return await _context.Students
                 .Include(s => s.CourseInstances)
+                .ThenInclude(ci => ci.Course)
                 .OrderBy(student => student.Name).ToListAsync();
         }
 
         public async Task<Student?> GetStudentById(Guid id)
         {
-            return await _context.Students.FindAsync(id);
+            return await _context.Students
+                .Include(s => s.CourseInstances)
+                .ThenInclude(ci => ci.Course)
+                .FirstOrDefaultAsync(s => s.Id == id);
         }
 
         public async Task<Student> CreateStudent(Student student)

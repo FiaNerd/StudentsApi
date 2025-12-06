@@ -13,11 +13,21 @@ namespace StudentsApi.Repositories
             _context = context;
         }
 
-        public async Task<IEnumerable<CourseInstance>> GetCourseInstances()
+        public async Task<bool> Exists(Guid courseId, DateTime startDate, DateTime endDate)
+        {
+            return await _context.CourseInstances
+                .AnyAsync(ci => ci.CourseId == courseId
+                             && ci.StartDate == startDate
+                             && ci.EndDate == endDate);
+        }
+
+
+        public async Task<IEnumerable<CourseInstance>> GetAllCourseInstances()
         {
             return await _context.CourseInstances
                 .Include(ci => ci.Students)
                 .Include(ci => ci.Course)
+                .AsNoTracking()
                 .ToListAsync();
         }
 
@@ -27,7 +37,7 @@ namespace StudentsApi.Repositories
             {
                 var courseInstance = await _context.CourseInstances
                     .Include(ci => ci.Students)
-                    .ThenInclude(s => s.CourseInstances)
+                    .Include(ci => ci.Course)
                     .FirstOrDefaultAsync(ci => ci.Id == id);
 
                 return courseInstance;

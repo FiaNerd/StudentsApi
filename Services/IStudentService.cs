@@ -5,10 +5,10 @@ namespace StudentsApi.Services
 {
     public interface IStudentService
     {
-        public Task<IEnumerable<StudentInfoDTO>> GetAllStudents();
-        public Task<Student?> GetStudentById(Guid id);
-        public Task<Student> CreateStudent(CreateStudentDTO student);
-        public Task<Student?> UpdateStudent(Guid id, CreateStudentDTO updateStudent);
-        public Task<Student?> DeleteStudent(Guid id);
+        public Task<IEnumerable<StudentDTO>> GetAllStudents();
+        public Task<StudentDTO?> GetStudentById(Guid id);
+        public Task<StudentDTO> CreateStudent(CreateStudentDTO student);
+        public Task<StudentDTO?> UpdateStudent(Guid id, CreateStudentDTO updateStudent);
+        public Task<StudentDTO?> DeleteStudent(Guid id);
     }
 }

@@ -15,11 +15,11 @@ namespace StudentsApi.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<CourseInstanceDTO>>> GetCourseInstances()
+        public async Task<ActionResult<IEnumerable<CourseInstanceDTO>>> GetAllCourseInstances()
         {
             try
             {
-                var courseInstances = await _service.GetCourseInstances();
+                var courseInstances = await _service.GetAllCourseInstances();
 
                 return Ok(courseInstances);
             }
@@ -42,6 +42,31 @@ namespace StudentsApi.Controllers
             catch (Exception)
             {
                 throw;
+            }
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<CourseInstanceDTO>> CreateCourseInstance([FromBody] CreateCourseInstanceDTO createCourseInstanceDTO)
+        {
+            try
+            {
+                if(!ModelState.IsValid)
+                {
+                    return ValidationProblem(ModelState);
+                }
+
+                var result = await _service.CreateCourseInstance(createCourseInstanceDTO);
+
+                return CreatedAtAction(nameof(GetCourseInstanceById), new { id = createCourseInstanceDTO.CourseId }, result);
+            }
+            catch (Exception ex)
+            {
+                if(ex.Message.Contains("already exist"))
+                {
+                    return Conflict(new { message = ex.Message });
+                }
+
+                return BadRequest(new { message = ex.Message });
             }
         }
 

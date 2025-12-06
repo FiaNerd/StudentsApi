@@ -2,7 +2,7 @@
 
 namespace StudentsApi.Models.DTOs
 {
-    public class CourseInstanceDTO
+    public class CreateCourseInstanceDTO
     {
         [Required]
         public DateTime StartDate { get; set; }
@@ -10,7 +10,7 @@ namespace StudentsApi.Models.DTOs
         [Required]
         public DateTime EndDate { get; set; }
 
-        public CourseSummaryDTO Course { get; set; } = null!;
-        public ICollection<StudentInfoDTO> Students { get; set; } = new List<StudentInfoDTO>();
+        public Guid CourseId { get; set; }
+
     }
 }

@@ -4,6 +4,8 @@ namespace StudentsApi.Models.DTOs
 {
     public class StudentDTO
     {
+        public Guid Id { get; set; }
+
         [Required]
         [StringLength(100, MinimumLength = 2, ErrorMessage = "Your name needs to be at least 2 char")]
         public string Name { get; set; } = string.Empty;
@@ -12,6 +14,6 @@ namespace StudentsApi.Models.DTOs
         [EmailAddress(ErrorMessage = "Not a valid Email!")]
         public string Email { get; set; } = string.Empty;
 
-        public ICollection<CourseInstanceDTO> CourseInstances { get; set; } = new List<CourseInstanceDTO>();
+        public ICollection<CourseInstanceInfoDTO> CourseInstances { get; set; } = new List<CourseInstanceInfoDTO>();
     }
 }

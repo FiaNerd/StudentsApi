@@ -8,14 +8,11 @@ namespace StudentsApi.Models
         public MappingProfile()
         {
             CreateMap<Course, CourseDTO>();
-            CreateMap<Course, CourseWithInstancesDTO>();
+            CreateMap<Course, CourseSummaryDTO>();
             CreateMap<CourseInstance, CourseInstanceDTO>();
             CreateMap<CourseInstance, CourseInstanceInfoDTO>();
             CreateMap<Student, StudentDTO>();
             CreateMap<Student, StudentInfoDTO>();
-            CreateMap<CourseInstance, CourseWithInstancesDTO>();
-
-
         }
     }
 }

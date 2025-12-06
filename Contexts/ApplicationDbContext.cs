@@ -63,9 +63,15 @@ namespace StudentsApi.Persistence
                         new { CourseInstancesId = Guid.Parse("e5f6789a-4b5c-4cdf-ef01-5678901234ef"), StudentsId = Guid.Parse("11111111-1111-1111-1111-111111111111") },
                         new { CourseInstancesId = Guid.Parse("d4e5f678-9a4b-4bcf-def0-4567890123de"), StudentsId = Guid.Parse("22222222-2222-2222-2222-222222222222") },
                         new { CourseInstancesId = Guid.Parse("f6789a4b-5c6d-4def-f012-6789012345f0"), StudentsId = Guid.Parse("33333333-3333-3333-3333-333333333333") },
-                          new { CourseInstancesId = Guid.Parse("f6789a4b-5c6d-4def-f012-6789012345f0"), StudentsId = Guid.Parse("11111111-1111-1111-1111-111111111111") }
+                        new { CourseInstancesId = Guid.Parse("f6789a4b-5c6d-4def-f012-6789012345f0"), StudentsId = Guid.Parse("11111111-1111-1111-1111-111111111111") }
                     )
                 );
+
+            modelBuilder.Entity<CourseInstance>()
+                .HasIndex(ci => new { ci.CourseId, ci.StartDate, ci.EndDate })
+                .IsUnique();
+
+            base.OnModelCreating(modelBuilder);
         }
     }
 }

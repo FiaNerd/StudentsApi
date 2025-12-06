@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using StudentsApi.Models;
 using StudentsApi.Models.DTOs;
 using StudentsApi.Repositories;
@@ -8,19 +9,21 @@ namespace StudentsApi.Services
     public class CourseInstanceService : ICourseInstanceService
     {
         private readonly ICourseInstanceRepository _repository;
+        private readonly ICourseRepository _courseRepository;
         private readonly IMapper _mapper;
 
-        public CourseInstanceService(ICourseInstanceRepository repository, IMapper mapper )
+        public CourseInstanceService(ICourseInstanceRepository repository, ICourseRepository courseRepository, IMapper mapper )
         {
             _repository = repository;
+            _courseRepository = courseRepository;
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<CourseInstanceDTO>> GetCourseInstances()
+        public async Task<IEnumerable<CourseInstanceDTO>> GetAllCourseInstances()
         {
             try
             {
-                IEnumerable<CourseInstance> courseInstances = await _repository.GetCourseInstances();
+                IEnumerable<CourseInstance> courseInstances = await _repository.GetAllCourseInstances();
 
                 return _mapper.Map<IEnumerable<CourseInstanceDTO>>(courseInstances);
             }
@@ -34,6 +37,12 @@ namespace StudentsApi.Services
         {
             try
             {   
+                var exist = await _repository.Exists(id, DateTime.MinValue, DateTime.MinValue);
+
+                if (exist) { 
+                    throw new Exception("Course Instance already exists");
+                }
+
                 var result = await _repository.GetCourseInstanceById(id);
 
                 if(result == null)
@@ -50,29 +59,34 @@ namespace StudentsApi.Services
             }
         }
 
-        public Task<CourseInstanceDTO?> CreateCourseInstance(CourseInstanceDTO courseInstanceDTO)
+        public async Task<CourseInstanceDTO> CreateCourseInstance(CreateCourseInstanceDTO dto)
         {
-            try
+            // Validate course exists
+            var course = await _courseRepository.GetCourseById(dto.CourseId);
+            if (course == null)
             {
-
-                throw new NotImplementedException();
-                //var addCourseInstance = new CourseInstance(
-                //        courseInstanceDTO.StartDate,
-                //        courseInstanceDTO.EndDate
-                //    );
-                //{ 
-                //    courseInstanceDTO.Students = addCourseInstance.Students;
-                //}; 
-
-                //var createdCourseInstance = _repository.CreateCourseInstance(addCourseInstance);
-
-                //return _mapper.Map<Task<CourseInstanceDTO>>(createdCourseInstance);
+                throw new KeyNotFoundException($"Course with id {dto.CourseId} not found.");
             }
-            catch (Exception ex)
+
+            // Check for duplicates
+            var exists = await _repository.Exists(dto.CourseId, dto.StartDate, dto.EndDate);
+
+            if (exists)
             {
-
-                throw new Exception("Not working", ex);
+                throw new InvalidOperationException("CourseInstance already exists for this course and date range.");
             }
+
+            // Create entity
+            var addCourseInstance = new CourseInstance(dto.StartDate, dto.EndDate)
+            {
+                Id = Guid.NewGuid(),
+                CourseId = dto.CourseId
+            };
+
+            // Save via repository
+            var createdCourseInstance = await _repository.CreateCourseInstance(addCourseInstance);
+
+            return _mapper.Map<CourseInstanceDTO>(createdCourseInstance);
         }
     }
 }

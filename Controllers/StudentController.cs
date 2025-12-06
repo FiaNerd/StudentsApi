@@ -26,7 +26,7 @@ namespace StudentsApi.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Student?>> GetStudentById(Guid id)
+        public async Task<ActionResult<StudentDTO?>> GetStudentById(Guid id)
         {
             try
             {
@@ -46,7 +46,7 @@ namespace StudentsApi.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Student>> CreateStudent([FromBody] CreateStudentDTO studentRequest)
+        public async Task<ActionResult<StudentDTO>> CreateStudent([FromBody] CreateStudentDTO studentRequest)
         {
             try
             {
@@ -67,7 +67,7 @@ namespace StudentsApi.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult<Student?>> UpdateStudent(Guid id, [FromBody] CreateStudentDTO studentRequest)
+        public async Task<ActionResult<StudentDTO?>> UpdateStudent(Guid id, [FromBody] CreateStudentDTO studentRequest)
         {
             try
             {
@@ -88,7 +88,7 @@ namespace StudentsApi.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Student?>> DeleteStudent(Guid id)
+        public async Task<IActionResult> DeleteStudent(Guid id)
         {
             try
             {

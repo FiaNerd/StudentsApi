@@ -15,13 +15,13 @@ namespace StudentsApi.Services
              _repo = repo;
             _mapper = mapper;
         }
-        public async Task<IEnumerable<StudentInfoDTO>> GetAllStudents()
+        public async Task<IEnumerable<StudentDTO>> GetAllStudents()
         {
             try
             {
                 var students = await _repo.GetAllStudents();
 
-                return _mapper.Map<IEnumerable<StudentInfoDTO>>(students);
+                return _mapper.Map<IEnumerable<StudentDTO>>(students);
             }
             catch (Exception ex)
             {
@@ -29,11 +29,12 @@ namespace StudentsApi.Services
             }
         }
 
-        public async Task<Student?> GetStudentById(Guid id)
+        public async Task<StudentDTO?> GetStudentById(Guid id)
         {
             try
             {
-                return await _repo.GetStudentById(id);
+                var student = await _repo.GetStudentById(id);
+                return _mapper.Map<StudentDTO?>(student);
             }
             catch (Exception)
             {
@@ -42,7 +43,7 @@ namespace StudentsApi.Services
             }
         }
 
-        public async Task<Student> CreateStudent(CreateStudentDTO studentRequest)
+        public async Task<StudentDTO> CreateStudent(CreateStudentDTO studentRequest)
         {
             try
             {
@@ -55,7 +56,7 @@ namespace StudentsApi.Services
 
                 if (isSuccess is not null) 
                 {
-                    return isSuccess;
+                    return _mapper.Map<StudentDTO>(isSuccess);
                 }
 
                     throw new Exception("Failed to create student.");
@@ -66,7 +67,7 @@ namespace StudentsApi.Services
             }
         }
 
-        public async Task<Student?> UpdateStudent(Guid id, CreateStudentDTO studentRequest)
+        public async Task<StudentDTO?> UpdateStudent(Guid id, CreateStudentDTO studentRequest)
         {
             try
             {
@@ -82,7 +83,7 @@ namespace StudentsApi.Services
 
                 if (isStudentUpdated is not null)
                 {
-                    return isStudentUpdated;
+                    return _mapper.Map<StudentDTO>(isStudentUpdated);
                 }
 
                 throw new Exception("Failed to update student.");
@@ -94,13 +95,25 @@ namespace StudentsApi.Services
             }
         }
 
-        public async Task<Student?> DeleteStudent(Guid id)
+        public async Task<StudentDTO?> DeleteStudent(Guid id)
         {
-            var deletedStudent = await _repo.DeleteStudent(id);
+            try
+            {
+                var deletedStudent = await _repo.DeleteStudent(id);
 
-            return deletedStudent == null ? 
-                  throw new InvalidOperationException($"Student with ID {id} could not be deleted because it does not exist.")
-                : deletedStudent;
+                if (deletedStudent is null)
+                {
+                    return null;
+                }
+
+                return _mapper.Map<StudentDTO>(deletedStudent);
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
     }
 }

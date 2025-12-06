@@ -11,6 +11,6 @@ namespace StudentsApi.Models.DTOs
         [Required(ErrorMessage = "The course must have a description")]
         [MinLength(10, ErrorMessage = "The description cannot have less then 10 characters")]
         public string Description { get; set; } = string.Empty;
-        //public ICollection<CourseInstanceDTO> CourseInstances { get; set; } = new List<CourseInstanceDTO>();
+        public ICollection<CourseInstanceDTO> CourseInstances { get; set; } = new List<CourseInstanceDTO>();
     }
 }

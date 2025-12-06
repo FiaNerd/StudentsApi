@@ -4,8 +4,11 @@ namespace StudentsApi.Models.DTOs
 {
     public class CourseInstanceInfoDTO
     {
-        public Guid Id { get; set; }
+        [Required]
         public DateTime StartDate { get; set; }
+
+        [Required]
         public DateTime EndDate { get; set; }
+
     }
 }
