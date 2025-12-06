@@ -54,6 +54,11 @@ namespace StudentsApi.Repositories
             }
         }
 
+        public Task<Student> EnrollStudentInCourseInstance(Guid studentId, Guid courseInstanceId)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<Student?> UpdateStudent(Guid id, Student updateStudent)
         {
             try
@@ -100,5 +105,7 @@ namespace StudentsApi.Repositories
                 throw;
             }
         }
+
+       
     }
 }
