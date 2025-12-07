@@ -14,6 +14,6 @@ namespace StudentsApi.Models.DTOs
         [EmailAddress(ErrorMessage = "Not a valid Email!")]
         public string Email { get; set; } = string.Empty;
 
-        public ICollection<CourseInstanceInfoDTO> CourseInstances { get; set; } = new List<CourseInstanceInfoDTO>();
+        public ICollection<CourseInstanceSummaryDTO> CourseInstances { get; set; } = new List<CourseInstanceSummaryDTO>();
     }
 }

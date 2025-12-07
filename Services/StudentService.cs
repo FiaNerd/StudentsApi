@@ -67,6 +67,18 @@ namespace StudentsApi.Services
             }
         }
 
+        public async Task<StudentDTO> EnrollStudentInCourseInstance(Guid studentId, Guid courseInstanceId)
+        {
+            var enrolledStudent = await _repo.EnrollStudentInCourseInstance(studentId, courseInstanceId);
+
+            if (enrolledStudent == null)
+            {
+                throw new InvalidOperationException($"Could not enroll student {studentId} in course instance {courseInstanceId}.");
+            }
+
+            return _mapper.Map<StudentDTO>(enrolledStudent);
+        }
+
         public async Task<StudentDTO?> UpdateStudent(Guid id, CreateStudentDTO studentRequest)
         {
             try
