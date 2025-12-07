@@ -54,9 +54,34 @@ namespace StudentsApi.Repositories
             }
         }
 
-        public Task<Student> EnrollStudentInCourseInstance(Guid studentId, Guid courseInstanceId)
+        public async Task<Student> EnrollStudentInCourseInstance(Guid studentId, Guid courseInstanceId)
         {
-            throw new NotImplementedException();
+           var student =  await _context.Students
+                .Include(s => s.CourseInstances)
+                .ThenInclude(ci => ci.Course)
+                .FirstOrDefaultAsync(s => s.Id == studentId);
+
+            if (student == null)
+            {
+                throw new Exception($"Student not found with {studentId}.");
+            }
+
+            var courseInstance = await _context.CourseInstances
+                .Include(ci => ci.Course)
+                .FirstOrDefaultAsync(ci => ci.Id == courseInstanceId);
+
+            if (courseInstance == null)
+            {
+                return student;
+            }
+
+            if(!student.CourseInstances.Any(ci => ci.Id == courseInstanceId))
+            {
+                student.CourseInstances.Add(courseInstance);
+                await _context.SaveChangesAsync();
+            }
+
+            return student;
         }
 
         public async Task<Student?> UpdateStudent(Guid id, Student updateStudent)
