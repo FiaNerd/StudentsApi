@@ -67,13 +67,13 @@ namespace StudentsApi.Services
             }
         }
 
-        public async Task<StudentDTO> EnrollStudentInCourseInstance(Guid studentId, Guid courseInstanceId)
+        public async Task<StudentDTO> EnrollStudentInCourseInstance(EnrollStudentDTO dto)
         {
-            var enrolledStudent = await _repo.EnrollStudentInCourseInstance(studentId, courseInstanceId);
+            var enrolledStudent = await _repo.EnrollStudentInCourseInstance(dto.StudentId, dto.CourseInstanceId);
 
             if (enrolledStudent == null)
             {
-                throw new InvalidOperationException($"Could not enroll student {studentId} in course instance {courseInstanceId}.");
+                throw new InvalidOperationException($"Could not enroll student {dto.StudentId} in course instance {dto.CourseInstanceId}.");
             }
 
             return _mapper.Map<StudentDTO>(enrolledStudent);

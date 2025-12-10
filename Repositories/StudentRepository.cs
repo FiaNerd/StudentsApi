@@ -63,7 +63,7 @@ namespace StudentsApi.Repositories
 
             if (student == null)
             {
-                throw new Exception($"Student not found with {studentId}.");
+                throw new KeyNotFoundException($"Student not found with id {studentId}.");
             }
 
             var courseInstance = await _context.CourseInstances
@@ -72,15 +72,16 @@ namespace StudentsApi.Repositories
 
             if (courseInstance == null)
             {
-                return student;
+                throw new KeyNotFoundException($"CourseInstance not found with id {courseInstanceId}.");
             }
 
-            if(!student.CourseInstances.Any(ci => ci.Id == courseInstanceId))
+            if (student.CourseInstances.Any(ci => ci.Id == courseInstanceId))
             {
-                student.CourseInstances.Add(courseInstance);
-                await _context.SaveChangesAsync();
+                throw new InvalidOperationException("Student is already enrolled in this course instance.");
             }
-
+            student.CourseInstances.Add(courseInstance);
+            await _context.SaveChangesAsync();
+            
             return student;
         }
 

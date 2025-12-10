@@ -68,6 +68,26 @@ namespace StudentsApi.Controllers
             }
         }
 
+
+        [HttpPost("{studentId}/course-instance/{courseeinstanceId}")]
+        public async Task<ActionResult<StudentDTO>> EnrollStudentInCourseInstance([FromBody] EnrollStudentDTO dto)
+        {
+            try
+            {
+                var enrolledStudent = await _studentService.EnrollStudentInCourseInstance(dto);
+
+                return Ok(enrolledStudent);
+            }
+            catch (InvalidOperationException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
         [HttpPut("{id}")]
         public async Task<ActionResult<StudentDTO?>> UpdateStudent(Guid id, [FromBody] CreateStudentDTO studentRequest)
         {

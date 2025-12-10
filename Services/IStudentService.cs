@@ -8,7 +8,7 @@ namespace StudentsApi.Services
         public Task<IEnumerable<StudentDTO>> GetAllStudents();
         public Task<StudentDTO?> GetStudentById(Guid id);
         public Task<StudentDTO> CreateStudent(CreateStudentDTO student);
-        public Task<StudentDTO> EnrollStudentInCourseInstance(Guid studentId, Guid courseInstanceId);
+        public Task<StudentDTO> EnrollStudentInCourseInstance(EnrollStudentDTO dto);
         public Task<StudentDTO?> UpdateStudent(Guid id, CreateStudentDTO updateStudent);
         public Task<StudentDTO?> DeleteStudent(Guid id);
     }
