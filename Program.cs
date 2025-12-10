@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using StudentsApi.Contexts;
 using StudentsApi.Persistence;
 using StudentsApi.Repositories;
 using StudentsApi.Services;
@@ -11,6 +12,10 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddOpenApi();
 
 builder.Services.AddDbContext<ApplicationDbContext>(
+    options => options.UseInMemoryDatabase("MyDb")
+    );
+
+builder.Services.AddDbContext<IdentityContext>(
     options => options.UseInMemoryDatabase("MyDb")
     );
 
