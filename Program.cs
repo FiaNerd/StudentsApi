@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using StudentsApi.Contexts;
 using StudentsApi.Persistence;
@@ -11,6 +12,18 @@ var builder = WebApplication.CreateBuilder(args);
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
+builder.Services.AddIdentityApiEndpoints<IdentityUser>(options =>
+{
+    options.Password.RequireDigit = true;
+    options.Password.RequireLowercase = true;
+    options.Password.RequireUppercase = true;
+    options.Password.RequireNonAlphanumeric = false;
+    options.Password.RequiredLength = 6;
+
+    options.User.RequireUniqueEmail = true;
+})
+  .AddEntityFrameworkStores<IdentityContext>();
+
 builder.Services.AddDbContext<ApplicationDbContext>(
     options => options.UseInMemoryDatabase("MyDb")
     );
@@ -18,6 +31,8 @@ builder.Services.AddDbContext<ApplicationDbContext>(
 builder.Services.AddDbContext<IdentityContext>(
     options => options.UseInMemoryDatabase("MyDb")
     );
+
+builder.Services.AddAuthorization();
 
 builder.Services.AddControllers()
     .AddJsonOptions(options =>
@@ -45,8 +60,6 @@ using (var scope = app.Services.CreateScope())
     context.Database.EnsureCreated();
 }
 
-
-
 app.MapControllers();
 
 // Configure the HTTP request pipeline.
@@ -56,6 +69,10 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.MapIdentityApi<IdentityUser>();
+app.UseAuthentication();
+app.UseAuthorization();
 
 //app.MapGet("/api/course-instance", (ICourseInstanceRepository courseRepo) =>
 //{
